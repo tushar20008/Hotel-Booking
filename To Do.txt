@@ -1,0 +1,8 @@
+Three actors: customer, hotel manager and hotel chief manager. 
+
+•	Use case: browse hotels and rooms. A customer can browse available hotels/rooms based on the search requirements such as date and location.
+•	Use case: book rooms. A customer may book more than one room at one time. The customer is not necessarily registered to book rooms. Registered member may enjoy discounts. 
+•	Use case: modify booking. Registered members can modify their bookings, i.e., change the room type, date, or cancel the booking. The success of booking modification depends on the availability of required hotels/rooms. 
+•	Use case: recommend rooms. A hotel manager can recommend hotels/rooms to the customer. The recommended rooms can be listed in a reasonable priority.
+•	Use case: manage hotels/rooms. A hotel manager can update the hotel/room information, including the room type, number of available rooms, room price and discount for registered members. 
+•	Use case: mange users. A hotel chief manager may add/update more hotel managers.
