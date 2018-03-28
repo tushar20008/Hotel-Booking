@@ -1,0 +1,39 @@
+URL Rewriting
+	GET: for everything
+	POST: for authentication controllers
+
+USER
+Homepage [index.do]
+	Login Page [login.do, loginerror.do]
+		User Info Page [userinfo.do]
+		View Bookings Page [bookings.do]
+			Modify Bookings Page [modify.do, modifyerror.do]
+			Checkout Page [checkout.do, checkout.do (check if already booked)]
+			Payment Page [payment.do, paymenterror.do]
+			Confirmation Page [confirm.do] -> Send email
+		Logout Page [logout.do]
+	Registration Page [registration.do, registrationerror.do]
+		User Page [userinfo.do]
+		Logout Page [logout.do]	
+	Search Bar -> New Page displaying hotels according to details added [search.do, searcherror.do]
+	Hotel Details Page [hotelinfo.do]
+	Checkout Page [checkout.do, checkouterror.do (check if already booked/ check if signed in)]
+	Payment Page [payment.do, paymenterror.do]
+	Confirmation Page [confirm.do] -> Send email
+
+MANAGER
+Homepage [index.do]
+	Login Page [login.do, loginerror.do]
+	Add Hotel Page [addhotel.do, addhotelerror.do]
+		Hotel Search Page [hotelsearch.do, hotelsearcherror.do]
+			Modify/Delete Hotel Details [modifyhotel.do, modifyhotelerror.do]
+		Logout Page [logout.do]
+
+CHIEF MANAGER
+Homepage [index.do]
+	Login Page [login.do, loginerror.do]
+		Manager Search Page [managersearch.do, managersearcherror.do]
+			Modify/Delete Manager [modifymanager.do, modifymanagererror.do]
+	Logout Page [logout.do]
+	
+	
