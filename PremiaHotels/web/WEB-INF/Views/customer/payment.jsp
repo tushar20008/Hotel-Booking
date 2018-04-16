@@ -1,6 +1,6 @@
 <%-- 
-    Document   : newjsp
-    Created on : Apr 8, 2018, 4:44:22 PM
+    Document   : payment
+    Created on : Apr 9, 2018, 4:22:02 PM
     Author     : Aditya
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Premia Hotels Index</title>
+        <title>JSP Page</title>
     </head>
     <body>
         <h1>Hello World!</h1>
