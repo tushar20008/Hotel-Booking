@@ -19,7 +19,17 @@ public class Hotel {
     private float singleRoomPrice;
     private int doubleRoomCap;
     private float doubleRoomPrice;
+    private int discount;
 
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    
     public String getLocation() {
         return location;
     }

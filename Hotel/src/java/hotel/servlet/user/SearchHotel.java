@@ -71,6 +71,7 @@ public class SearchHotel extends HttpServlet {
             List<Hotel> hotelList = null;
             hotelList = CustomerDBUtils.queryHotelsByLocation(conn, location);
             
+            List<Hotel> availableHotels = null;
             for(Hotel h: hotelList){
                 
             }
