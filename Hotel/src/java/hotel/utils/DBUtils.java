@@ -111,14 +111,14 @@ public class DBUtils {
         pstm.executeUpdate();
     }
  
-//    public static void deleteProduct(Connection conn, String code) throws SQLException {
-//        String sql = "Delete From Product where Code= ?";
-// 
-//        PreparedStatement pstm = conn.prepareStatement(sql);
-// 
-//        pstm.setString(1, code);
-// 
-//        pstm.executeUpdate();
-//    }
+    public static void deleteManager(Connection conn, String code) throws SQLException {
+        String sql = "Delete From users where Code= ?";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setString(1, code);
+ 
+        pstm.executeUpdate();
+    }
  
 }

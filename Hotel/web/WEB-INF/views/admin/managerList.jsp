@@ -12,7 +12,7 @@
         <title>Manager List</title>
     </head>
     <body>
-        <h3>Product List</h3>
+        <h3>Manager List</h3>
  
     <p style="color: red;">${errorString}</p>
  
