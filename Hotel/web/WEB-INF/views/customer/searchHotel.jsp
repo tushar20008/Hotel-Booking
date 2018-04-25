@@ -12,29 +12,11 @@
         <title>Hotels</title>
     </head>
     <body>
-        <form name="Hotel Search" action="searchHotel.jsp">
-            <select name="Location" size="5">
-                <option>Hong Kong</option>
-                <option>London</option>
-                <option>New York</option>
-                <option>Tokyo</option>
-                <option>Delhi</option>
-            </select>
-            <select name="Single Rooms" size="5">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-            <select name="Double Rooms" size="5">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-            
+        <form name="Hotel Search" method="POST">
+            Location: <input type="text" id="location" name="Location"/></br>
+            Start Date: <input type="date" id="startdate" value=""/></br>
+            End Date: <input type="date" id="enddate" value=""/></br>
+            <input type="submit" value="Search" name="Search"/>
         </form>
     </body>
 </html>

@@ -14,9 +14,52 @@ public class Hotel {
     
     private String name;
     private String id;
-    private String city;
-    private int price;
-    
+    private String location;
+    private int singleRoomCap;
+    private float singleRoomPrice;
+    private int doubleRoomCap;
+    private float doubleRoomPrice;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getSingleRoomCap() {
+        return singleRoomCap;
+    }
+
+    public void setSingleRoomCap(int singleRoomCap) {
+        this.singleRoomCap = singleRoomCap;
+    }
+
+    public float getSingleRoomPrice() {
+        return singleRoomPrice;
+    }
+
+    public void setSingleRoomPrice(float singleRoomPrice) {
+        this.singleRoomPrice = singleRoomPrice;
+    }
+
+    public int getDoubleRoomCap() {
+        return doubleRoomCap;
+    }
+
+    public void setDoubleRoomCap(int doubleRoomCap) {
+        this.doubleRoomCap = doubleRoomCap;
+    }
+
+    public float getDoubleRoomPrice() {
+        return doubleRoomPrice;
+    }
+
+    public void setDoubleRoomPrice(float doubleRoomPrice) {
+        this.doubleRoomPrice = doubleRoomPrice;
+    }
+
     public String getName() {
         return name;
     }
@@ -34,19 +77,10 @@ public class Hotel {
     }
 
     public String getCity() {
-        return city;
+        return location;
     }
 
     public void setCity(String city) {
-        this.city = city;
-    }
-    
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-    
+        this.location = city;
+    }    
 }

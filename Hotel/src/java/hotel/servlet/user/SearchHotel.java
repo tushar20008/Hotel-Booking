@@ -5,84 +5,89 @@
  */
 package hotel.servlet.user;
 
+import hotel.beans.Hotel;
+import hotel.utils.CommonUtils;
+import hotel.utils.CustomerDBUtils;
+import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 /**
  *
  * @author Tushar
  */
-@WebServlet(name = "SearchHotel", urlPatterns = {"/user/searchHotel"})
+@WebServlet(name = "SearchHotel", urlPatterns = {"/searchHotel"})
 public class SearchHotel extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SearchHotel</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SearchHotel at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+       public SearchHotel() {
+       super();
+   }
+       
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/customer/searchHotel.jsp");
+        dispatcher.forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String location = request.getParameter("location");
+        String start = request.getParameter("startdate");
+        String end = request.getParameter("enddate");
+
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = ft.parse(start);
+             endDate = ft.parse(end);
+        } catch (ParseException ex) {
+            Logger.getLogger(SearchHotel.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        
+        boolean hasError;
+        String errorString;
+        
+        if (location == null || startDate == null || endDate == null || startDate.before(endDate)){
+            hasError = true;
+            errorString = "Search parameters are wrong";
+        } else {
+            Connection conn = MyUtils.getStoredConnection(request);
+            
+            List<Hotel> hotelList = null;
+            hotelList = CustomerDBUtils.queryHotelsByLocation(conn, location);
+            
+            for(Hotel h: hotelList){
+                
+            }
+            
+//            try {
+//                // Find the user in the DB.
+//                user = CommonUtils.findUser(conn, userName, password);
+//
+//                if (user == null) {
+//                    hasError = true;
+//                    errorString = "User Name or password invalid";
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                hasError = true;
+//                errorString = e.getMessage();
+//            }
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

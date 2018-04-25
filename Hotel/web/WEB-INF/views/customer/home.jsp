@@ -13,8 +13,8 @@
     </head>
     <body>
         <h1>Customer Functions</h1>
-        <a href="${pageContext.request.contextPath}/searchHotel">Search Hotels</a>
-        <a href="${pageContext.request.contextPath}/modifyBooking">Modify Bookings</a>
+        <a href="${pageContext.request.contextPath}/searchHotel">Search Hotels</a></br>
+        <a href="${pageContext.request.contextPath}/modifyBooking">Modify Bookings</a></br>
         <a href="${pageContext.request.contextPath}/recommendedHotels">Recommended Hotels</a>
     </body>
 </html>
