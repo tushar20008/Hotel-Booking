@@ -109,13 +109,13 @@ public class Login extends HttpServlet {
                 // Todo: Different Redirects for User / Manager / Admin
             switch (user.getRole()) {
                 case "customer":
-                    response.sendRedirect(request.getContextPath() + "/user/home");
+                    response.sendRedirect(request.getContextPath() + "/home?user=customer");
                     break;
                 case "manager":
-                    response.sendRedirect(request.getContextPath() + "/manager/home");
+                    response.sendRedirect(request.getContextPath() + "/home?user=manager");
                     break;
                 case "admin":
-                    response.sendRedirect(request.getContextPath() + "/admin/home");
+                    response.sendRedirect(request.getContextPath() + "/home?user=admin");
                     break;
                 default:
                     break;

@@ -37,6 +37,11 @@
                   <a href="${pageContext.request.contextPath}/">Cancel</a>
                </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="${pageContext.request.contextPath}/home?user=customer">Continue as Guest</a>
+                </td>
+            </tr>
          </table>
       </form>
      

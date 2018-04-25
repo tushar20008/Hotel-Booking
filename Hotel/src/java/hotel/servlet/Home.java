@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotel.servlet.user;
+package hotel.servlet;
 
 import java.io.IOException;
  
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "Home", urlPatterns = {"/user/home"})
+@WebServlet(name = "Home", urlPatterns = {"/home/*"})
 public class Home extends HttpServlet {
    private static final long serialVersionUID = 1L;
  
@@ -26,12 +26,11 @@ public class Home extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
            throws ServletException, IOException {
  
+        String role = request.getParameter("user");
         
        // Forward to /WEB-INF/views/homeView.jsp
-       // (Users can not access directly into JSP pages placed in WEB-INF)
-       RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/user/home.jsp");
-        
-       dispatcher.forward(request, response);
+       //RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/user/home.jsp"); 
+       //dispatcher.forward(request, response);
         
    }
  
