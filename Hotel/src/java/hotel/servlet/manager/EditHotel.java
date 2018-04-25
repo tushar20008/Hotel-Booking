@@ -5,8 +5,16 @@
  */
 package hotel.servlet.manager;
 
+import hotel.beans.Account;
+import hotel.beans.Hotel;
+import hotel.utils.AdminDBUtils;
+import hotel.utils.ManagerDBUtils;
+import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,69 +28,95 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "EditHotel", urlPatterns = {"/editHotel"})
 public class EditHotel extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditHotel</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditHotel at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    public EditHotel() {
+        super();
+    }
+ 
+    // Show product edit page.
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Connection conn = MyUtils.getStoredConnection(request);
+ 
+        String code = (String) request.getParameter("code");
+ 
+        Hotel hotel = null;
+ 
+        String errorString = null;
+ 
+        try {
+            hotel = ManagerDBUtils.findHotel(conn, code);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorString = e.getMessage();
+        }
+ 
+        if (errorString != null && hotel == null) {
+            response.sendRedirect(request.getServletPath() + "/hotelList");
+            return;
+        }
+ 
+        // Store errorString in request attribute, before forward to views.
+        request.setAttribute("errorString", errorString);
+        request.setAttribute("hotel", hotel);
+ 
+        RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/views/admin/editHotel.jsp");
+        dispatcher.forward(request, response);
+ 
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
+    // After the user modifies the product information, and click Submit.
+    // This method will be executed.
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Connection conn = MyUtils.getStoredConnection(request);
+ 
+        String name = (String) request.getParameter("username");
+        String location = (String) request.getParameter("password");
+        int discount = Integer.parseInt(request.getParameter("discount"));
+        int singleRoomCap = Integer.parseInt(request.getParameter("singleRoomCap"));
+        int doubleRoomCap = Integer.parseInt(request.getParameter("doubleRoomCap"));
+        int singleRoomPrice = Integer.parseInt(request.getParameter("singleRoomPrice"));
+        int doubleRoomPrice = Integer.parseInt(request.getParameter("doubleRoomPrice"));
+        String code = (String) request.getParameter("code");
+        
+        Hotel hotel = new Hotel();
+        hotel.setName(name);
+        hotel.setLocation(location);
+        hotel.setDiscount(discount);
+        hotel.setSingleRoomCap(singleRoomCap);
+        hotel.setDoubleRoomCap(doubleRoomCap);
+        hotel.setSingleRoomPrice(singleRoomPrice);
+        hotel.setDoubleRoomPrice(doubleRoomPrice);
+        hotel.setId(code);
+        
+        
+        String errorString = null;
+ 
+        try {
+            ManagerDBUtils.updateHotel(conn, hotel);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorString = e.getMessage();
+        }
+        // Store infomation to request attribute, before forward to views.
+        request.setAttribute("errorString", errorString);
+        request.setAttribute("hotel", hotel);
+ 
+        // If error, forward to Edit page.
+        if (errorString != null) {
+            RequestDispatcher dispatcher = request.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/views/admin/editHotel.jsp");
+            dispatcher.forward(request, response);
+        }
+        // If everything nice.
+        // Redirect to the product listing page.
+        else {
+            response.sendRedirect(request.getContextPath() + "/hotelList");
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+ 
 }

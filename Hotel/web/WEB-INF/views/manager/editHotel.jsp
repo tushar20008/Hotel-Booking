@@ -31,15 +31,7 @@
                </tr>
                <tr>
                   <td>Location</td>
-                  <td><input type="text" name="location" value="${hotel.city}" /></td>
-               </tr>
-               <tr>
-                  <td>Location</td>
-                  <td><input type="text" name="location" value="${hotel.city}" /></td>
-               </tr>
-               <tr>
-                  <td>Price</td>
-                  <td><input type="number" name="price" value="${hotel.price}" /></td>
+                  <td><input type="text" name="location" value="${hotel.location}" /></td>
                </tr>
                <tr>
                   <td>Discount</td>
@@ -47,11 +39,19 @@
                </tr>
                <tr>
                   <td>Number of Single Rooms</td>
-                  <td><input type="number" name="numberOfSingle" value="${hotel.numberOfSingle}" /></td>
+                  <td><input type="number" name="singleRoomCap" value="${hotel.singleRoomCap}" /></td>
+               </tr>
+               <tr>
+                  <td>Price of Single Room</td>
+                  <td><input type="number" name="singleRoomPrice" value="${hotel.singleRoomPrice}" /></td>
                </tr>
                <tr>
                   <td>Number of Double Rooms</td>
-                  <td><input type="number" name="numberOfDouble" value="${hotel.numberOfDouble}" /></td>
+                  <td><input type="number" name="doubleRoomCap" value="${hotel.doubleRoomCap}" /></td>
+               </tr>
+               <tr>
+                  <td>Price of Double Room</td>
+                  <td><input type="number" name="doubleRoomPrice" value="${hotel.doubleRoomPrice}" /></td>
                </tr>
                <tr>
                   <td colspan = "2">

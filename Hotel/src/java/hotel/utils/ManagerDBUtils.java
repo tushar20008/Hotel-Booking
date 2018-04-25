@@ -88,4 +88,35 @@ public class ManagerDBUtils {
         }
         return null;
     }
+    
+    public static Hotel findHotel(Connection conn, String code) throws SQLException {
+        String sql = "Select * from hotel a where a.hotelId=?";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, code);
+ 
+        ResultSet rs = pstm.executeQuery();
+ 
+        while (rs.next()) {
+            String name = rs.getString("username");
+            String location = rs.getString("password");
+            int discount = rs.getInt("discount");
+            int singleRoomCap = rs.getInt("singleRooms");
+            int doubleRoomCap = rs.getInt("doubleRooms");
+            int singleRoomPrice = rs.getInt("singleRoomPrice");
+            int doubleRoomPrice = rs.getInt("doubleRoomPrice");
+            
+            Hotel hotel = new Hotel();
+            hotel.setName(name);
+            hotel.setLocation(location);
+            hotel.setDiscount(discount);
+            hotel.setSingleRoomCap(singleRoomCap);
+            hotel.setDoubleRoomCap(doubleRoomCap);
+            hotel.setSingleRoomPrice(singleRoomPrice);
+            hotel.setDoubleRoomPrice(doubleRoomPrice);
+            hotel.setId(code);
+            return hotel;
+        }
+        return null;
+    }
 }

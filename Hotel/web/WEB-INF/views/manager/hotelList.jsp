@@ -29,7 +29,7 @@
           <tr>
              <td>${hotel.id}</td>
              <td>${hotel.name}</td>
-             <td>${hotel.city}</td>
+             <td>${hotel.location}</td>
              <td>
                 <a href="editHotel?code=${hotel.id}">Edit</a>
              </td>
