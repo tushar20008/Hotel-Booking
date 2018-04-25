@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addManager
-    Created on : 25 Apr, 2018, 10:42:51 AM
+    Document   : deleteManager
+    Created on : 25 Apr, 2018, 12:44:31 PM
     Author     : Tushar
 --%>
 
@@ -12,6 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h3>Delete Product</h3>
+    
+    <p style="color: red;">${errorString}</p>
+    <a href="managerList">Manager List</a>
     </body>
 </html>

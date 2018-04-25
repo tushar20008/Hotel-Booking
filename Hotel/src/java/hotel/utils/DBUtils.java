@@ -52,74 +52,73 @@ public class DBUtils {
         return null;
     }
  
-//    public static List<Product> queryProduct(Connection conn) throws SQLException {
-//        String sql = "Select a.Code, a.Name, a.Price from Product a ";
-// 
-//        PreparedStatement pstm = conn.prepareStatement(sql);
-// 
-//        ResultSet rs = pstm.executeQuery();
-//        List<Product> list = new ArrayList<Product>();
-//        while (rs.next()) {
-//            String code = rs.getString("Code");
-//            String name = rs.getString("Name");
-//            float price = rs.getFloat("Price");
-//            Product product = new Product();
-//            product.setCode(code);
-//            product.setName(name);
-//            product.setPrice(price);
-//            list.add(product);
-//        }
-//        return list;
-//    }
+    public static List<Account> queryGetManagers(Connection conn) throws SQLException {
+        String sql = "Select * from users where role='manager'";
  
-//    public static Product findProduct(Connection conn, String code) throws SQLException {
-//        String sql = "Select a.Code, a.Name, a.Price from Product a where a.Code=?";
-// 
-//        PreparedStatement pstm = conn.prepareStatement(sql);
-//        pstm.setString(1, code);
-// 
-//        ResultSet rs = pstm.executeQuery();
-// 
-//        while (rs.next()) {
-//            String name = rs.getString("Name");
-//            float price = rs.getFloat("Price");
-//            Product product = new Product(code, name, price);
-//            return product;
-//        }
-//        return null;
-//    }
+        PreparedStatement pstm = conn.prepareStatement(sql);
  
-//    public static void updateProduct(Connection conn, Product product) throws SQLException {
-//        String sql = "Update Product set Name =?, Price=? where Code=? ";
-// 
-//        PreparedStatement pstm = conn.prepareStatement(sql);
-// 
-//        pstm.setString(1, product.getName());
-//        pstm.setFloat(2, product.getPrice());
-//        pstm.setString(3, product.getCode());
-//        pstm.executeUpdate();
-//    }
+        ResultSet rs = pstm.executeQuery();
+        List<Account> list = new ArrayList<Account>();
+        while (rs.next()) {
+            String code = rs.getString("id");
+            String name = rs.getString("username");
+            String password = rs.getString("password");
+            Account manager = new Account(name, password);
+            manager.setCode(code);
+            list.add(manager);
+        }
+        return list;
+    }
  
-//    public static void insertProduct(Connection conn, Product product) throws SQLException {
-//        String sql = "Insert into Product(Code, Name,Price) values (?,?,?)";
-// 
-//        PreparedStatement pstm = conn.prepareStatement(sql);
-// 
-//        pstm.setString(1, product.getCode());
-//        pstm.setString(2, product.getName());
-//        pstm.setFloat(3, product.getPrice());
-// 
-//        pstm.executeUpdate();
-//    }
+    public static Account findManager(Connection conn, String code) throws SQLException {
+        String sql = "Select * from users a where a.id=?";
  
-//    public static void deleteProduct(Connection conn, String code) throws SQLException {
-//        String sql = "Delete From Product where Code= ?";
-// 
-//        PreparedStatement pstm = conn.prepareStatement(sql);
-// 
-//        pstm.setString(1, code);
-// 
-//        pstm.executeUpdate();
-//    }
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, code);
+ 
+        ResultSet rs = pstm.executeQuery();
+ 
+        while (rs.next()) {
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            
+            Account manager = new Account(username, password);
+            return manager;
+        }
+        return null;
+    }
+ 
+    public static void updateManager(Connection conn, Account manager) throws SQLException {
+        String sql = "Update users set username =?, password=? where id=? ";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setString(1, manager.getUserName());
+        pstm.setString(2, manager.getPassword());
+        pstm.setString(3, manager.getCode());
+        pstm.executeUpdate();
+    }
+ 
+    public static void insertManager(Connection conn, Account manager) throws SQLException {
+        String sql = "Insert into Product(username, password, role) values (?,?,?)";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setString(1, manager.getUserName());
+        pstm.setString(2, manager.getPassword());
+        pstm.setString(3, manager.getRole());
+ 
+        pstm.executeUpdate();
+    }
+ 
+    public static void deleteManager(Connection conn, String code) throws SQLException {
+        String sql = "Delete From users where Code= ?";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setString(1, code);
+ 
+        pstm.executeUpdate();
+    }
  
 }

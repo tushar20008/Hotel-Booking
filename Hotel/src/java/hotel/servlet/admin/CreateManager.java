@@ -11,6 +11,7 @@ import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+ 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,82 +19,57 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "EditManager", urlPatterns = {"/editManager"})
-public class EditManager extends HttpServlet {
+@WebServlet(name = "CreateManager", urlPatterns = {"/createManager"})
+public class CreateManager extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+     private static final long serialVersionUID = 1L;
  
-    public EditManager() {
+    public CreateManager() {
         super();
     }
  
-    // Show product edit page.
+    // Show product creation page.
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Connection conn = MyUtils.getStoredConnection(request);
- 
-        String code = (String) request.getParameter("code");
- 
-        Account manager = null;
- 
-        String errorString = null;
- 
-        try {
-            manager = DBUtils.findManager(conn, code);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            errorString = e.getMessage();
-        }
- 
-        // If no error.
-        // The product does not exist to edit.
-        // Redirect to productList page.
-        if (errorString != null && manager == null) {
-            response.sendRedirect(request.getServletPath() + "/managerList");
-            return;
-        }
- 
-        // Store errorString in request attribute, before forward to views.
-        request.setAttribute("errorString", errorString);
-        request.setAttribute("product", manager);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/admin/editManager.jsp");
+                .getRequestDispatcher("/WEB-INF/views/admin/createManager.jsp");
         dispatcher.forward(request, response);
- 
     }
  
-    // After the user modifies the product information, and click Submit.
-    // This method will be executed.
+    // When the user enters the product information, and click Submit.
+    // This method will be called.
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
  
-        String userName = (String) request.getParameter("username");
+        String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
-        String code = (String) request.getParameter("code");
+        String role = "manager";
         
-        Account manager = new Account(userName, password);
-        manager.setCode(code);
-        
+        Account manager = new Account(username, password, role);
+ 
         String errorString = null;
  
-        try {
-            DBUtils.updateManager(conn, manager);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            errorString = e.getMessage();
+        if (errorString == null) {
+            try {
+                DBUtils.insertManager(conn, manager);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                errorString = e.getMessage();
+            }
         }
+ 
         // Store infomation to request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("product", manager);
+        request.setAttribute("manager", manager);
  
         // If error, forward to Edit page.
         if (errorString != null) {
             RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/views/admin/editManager.jsp");
+                    .getRequestDispatcher("/WEB-INF/views/admin/createManager.jsp");
             dispatcher.forward(request, response);
         }
         // If everything nice.
