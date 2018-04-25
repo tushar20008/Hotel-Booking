@@ -20,8 +20,11 @@ import java.util.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -48,13 +51,24 @@ public class SearchHotel extends HttpServlet {
         
         String url = request.getRequestURL().toString();
         RequestDispatcher dispatcher = null;
-        if(url.contains("/book")){
+        if(url.contains("hotelId")){
+            
+            System.out.println("Running");
+            
             String hotelId = request.getParameter("hotelId");
-            String startDate = request.getParameter("startdate");
-            String endDate = request.getParameter("enddate");
+            String startDateString = request.getParameter("startdate");
+            String endDateString = request.getParameter("enddate");
             int singleRooms = Integer.parseInt(request.getParameter("singleRooms"));
             int doubleRooms = Integer.parseInt(request.getParameter("doubleRooms"));
-            String bookId = "test";
+            String username = MyUtils.getUserNameInCookie(request);
+            String alphabet= "abcdefghijklmnopqrstuvwxyz";
+            String bookId = "";
+            Random random = new Random();
+            int randomLen = 1+random.nextInt(9);
+            for (int i = 0; i < randomLen; i++) {
+                char c = alphabet.charAt(random.nextInt(26));
+                bookId+=c;
+            }
             
             Connection conn = MyUtils.getStoredConnection(request);
             HotelInfo hotel = null;
@@ -73,16 +87,21 @@ public class SearchHotel extends HttpServlet {
                 return;
             }
             
-            String username = MyUtils.getUserNameInCookie(request);
-            for(){
+            LocalDate start = LocalDate.parse(startDateString),
+                      end   = LocalDate.parse(endDateString);
+            LocalDate next = start.minusDays(1);
+            
+            while ((next = next.plusDays(1)).isBefore(end.plusDays(1))) {
+       
                 Booking booking = new Booking();
                 booking.setBookingId(bookId);
                 booking.setSingleRoom(singleRooms);
                 booking.setDoubleRoom(doubleRooms);
                 booking.setHotelId(hotelId);
+                // Give Discount only if user
                 booking.setCost((singleRooms * hotel.getSingleRoomPrice()) + (doubleRooms * hotel.getDoubleRoomPrice()) - hotel.getDiscount());
                 booking.setUsername(username);
-                booking.setDate();
+                booking.setDate(next.toString());
                 try {
                     CustomerDBUtils.bookHotel(conn, booking);
                 } catch (SQLException e) {
@@ -91,7 +110,7 @@ public class SearchHotel extends HttpServlet {
                 }
             }
             
-            response.sendRedirect("/checkout");
+            response.sendRedirect("/checkout?id="+bookId);
         }
         else{
             dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/customer/searchHotel.jsp");

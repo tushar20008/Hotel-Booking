@@ -50,7 +50,7 @@
              <td>${hotel.singleRoomPrice}</td>
              <td>${hotel.doubleRoomPrice}</td>
              <td>
-                <a href="book?hotelId=${hotel.id}">Book</a>
+                <a href="?hotelId=${hotel.id}">Book</a>
              </td>
           </tr>
        </c:forEach>
