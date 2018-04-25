@@ -1,6 +1,6 @@
 <%-- 
-    Document   : updateManager
-    Created on : 25 Apr, 2018, 10:43:11 AM
+    Document   : memberList
+    Created on : 25 Apr, 2018, 6:59:33 PM
     Author     : Tushar
 --%>
 
@@ -10,35 +10,35 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manager List</title>
+        <title>Hotel List</title>
     </head>
     <body>
-        <h3>Manager List</h3>
+        <h3>Hotel List</h3>
  
     <p style="color: red;">${errorString}</p>
  
     <table border="1" cellpadding="5" cellspacing="1" >
        <tr>
-          <th>Manger Id</th>
-          <th>Username</th>
-          <th>Password</th>
+          <th>Hotel Id</th>
+          <th>Name</th>
+          <th>Location</th>
           <th>Edit</th>
           <th>Delete</th>
        </tr>
-       <c:forEach items="${managerList}" var="manager" >
+       <c:forEach items="${hotelList}" var="hotel" >
           <tr>
-             <td>${manager.code}</td>
-             <td>${manager.userName}</td>
-             <td>${manager.password}</td>
+             <td>${hotel.id}</td>
+             <td>${hotel.name}</td>
+             <td>${hotel.city}</td>
              <td>
-                <a href="editManager?code=${manager.code}">Edit</a>
+                <a href="editHotel?code=${hotel.id}">Edit</a>
              </td>
              <td>
-                <a href="deleteManager?code=${manager.code}">Delete</a>
+                <a href="deleteHotel?code=${hotel.id}">Delete</a>
              </td>
           </tr>
        </c:forEach>
     </table>
-    <a href="${pageContext.request.contextPath}/home?user=admin">Go Back</a>
+    <a href="${pageContext.request.contextPath}/home?user=manager">Go Back</a>
     </body>
 </html>

@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h3>Delete Product</h3>
+        <h3>Delete Manager</h3>
     
     <p style="color: red;">${errorString}</p>
     <a href="managerList">Manager List</a>

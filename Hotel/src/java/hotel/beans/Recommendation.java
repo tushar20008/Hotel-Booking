@@ -13,7 +13,7 @@ public class Recommendation {
     
     int index;
     String hotelID;
-    String roomID;
+    String userID;
 
     public int getIndex() {
         return index;
@@ -31,12 +31,12 @@ public class Recommendation {
         this.hotelID = hotelID;
     }
 
-    public String getRoomID() {
-        return roomID;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setRoomID(String roomID) {
-        this.roomID = roomID;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
     
     
