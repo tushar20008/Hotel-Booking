@@ -39,5 +39,6 @@
           </tr>
        </c:forEach>
     </table>
+    <a href="${pageContext.request.contextPath}/home?user=admin">Go Back</a>
     </body>
 </html>

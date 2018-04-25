@@ -48,6 +48,7 @@ public class AdminDBUtils {
             String password = rs.getString("password");
             
             Account manager = new Account(username, password);
+            manager.setCode(code);
             return manager;
         }
         return null;
@@ -65,7 +66,7 @@ public class AdminDBUtils {
     }
  
     public static void insertManager(Connection conn, Account manager) throws SQLException {
-        String sql = "Insert into Product(username, password, role) values (?,?,?)";
+        String sql = "Insert into users(username, password, role) values (?,?,?)";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
  
@@ -77,7 +78,7 @@ public class AdminDBUtils {
     }
  
     public static void deleteManager(Connection conn, String code) throws SQLException {
-        String sql = "Delete From users where Code= ?";
+        String sql = "Delete From users where id= ?";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
  

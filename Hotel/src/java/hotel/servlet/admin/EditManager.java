@@ -56,7 +56,7 @@ public class EditManager extends HttpServlet {
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("product", manager);
+        request.setAttribute("manager", manager);
  
         RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/views/admin/editManager.jsp");

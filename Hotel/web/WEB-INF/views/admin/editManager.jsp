@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,7 +27,7 @@
                </tr>
                <tr>
                   <td>UserName</td>
-                  <td><input type="text" name="username" value="${manager.name}" /></td>
+                  <td><input type="text" name="username" value="${manager.userName}" /></td>
                </tr>
                <tr>
                   <td>Password</td>

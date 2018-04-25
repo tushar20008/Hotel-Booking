@@ -16,11 +16,11 @@
        
       <p style="color: red;">${errorString}</p>
        
-      <form method="POST" action="${pageContext.request.contextPath}/createProduct">
+      <form method="POST" action="${pageContext.request.contextPath}/createManager">
          <table border="0">
             <tr>
                <td>UserName</td>
-               <td><input type="text" name="username" value="${manager.username}" /></td>
+               <td><input type="text" name="username" value="${manager.userName}" /></td>
             </tr>
             <tr>
                <td>Password</td>
