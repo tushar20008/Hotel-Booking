@@ -5,8 +5,18 @@
  */
 package hotel.servlet.manager;
 
+import hotel.beans.Account;
+import hotel.beans.Hotel;
+import hotel.beans.Recommendation;
+import hotel.utils.AdminDBUtils;
+import hotel.utils.ManagerDBUtils;
+import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,72 +27,88 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Tushar
  */
-@WebServlet(name = "RecommendHotel", urlPatterns = {"/RecommendHotel"})
+@WebServlet(name = "RecommendHotel", urlPatterns = {"/recommendHotel"})
 public class RecommendHotel extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RecommendHotel</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RecommendHotel at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+    public RecommendHotel() {
+        super();
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Connection conn = MyUtils.getStoredConnection(request);
+ 
+        String errorString = null;
+        List<Hotel> list = null;
+        try {
+            list = ManagerDBUtils.queryGetHotels(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorString = e.getMessage();
+        }
+        // Store info in request attribute, before forward to views
+        request.setAttribute("errorString", errorString);
+        request.setAttribute("hotelList", list);
+        
+        String code = (String) request.getParameter("code");
+ 
+        Account member = null; 
+        try {
+            member = ManagerDBUtils.findMember(conn, code);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorString = e.getMessage();
+        }
+        
+        if (errorString != null && member == null) {
+            response.sendRedirect(request.getServletPath() + "/hotelList");
+            return;
+        }
+        request.setAttribute("member", member);
+        
+        // Forward to /WEB-INF/views/productListView.jsp
+        RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/views/manager/recommendHotel.jsp");
+        dispatcher.forward(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
+    // After the user modifies the product information, and click Submit.
+    // This method will be executed.
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Connection conn = MyUtils.getStoredConnection(request);
+ 
+        String userId = (String) request.getParameter("code");
+        String hotelId = (String) request.getParameter("hotel");
+        
+        Recommendation booking = new Recommendation(); 
+        booking.setUserID(userId);
+        booking.setHotelID(hotelId);
+        
+        String errorString = null;
+        
+        try {
+            ManagerDBUtils.insertRecommendation(conn, booking);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorString = e.getMessage();
+        }
+        // Store infomation to request attribute, before forward to views.
+        request.setAttribute("errorString", errorString);
+ 
+        // If error, forward to Edit page.
+        if (errorString != null) {
+            RequestDispatcher dispatcher = request.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/views/manager/recommendHotel.jsp");
+            dispatcher.forward(request, response);
+        }
+        // If everything nice.
+        // Redirect to the product listing page.
+        else {
+            response.sendRedirect(request.getContextPath() + "/managerList");
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+ 
 }

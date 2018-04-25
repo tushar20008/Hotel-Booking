@@ -6,6 +6,8 @@
 package hotel.utils;
 
 import hotel.beans.Account;
+import hotel.beans.Hotel;
+import hotel.beans.Recommendation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,9 +20,9 @@ import java.util.List;
  * @author Aditya
  */
 public class ManagerDBUtils {
-     
-    public static List<Account> queryGetHotels(Connection conn) throws SQLException {
-        String sql = "Select * from users where role='manager'";
+    
+    public static List<Account> queryGetMembers(Connection conn) throws SQLException {
+        String sql = "Select * from users where role='customer'";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
  
@@ -30,14 +32,45 @@ public class ManagerDBUtils {
             String code = rs.getString("id");
             String name = rs.getString("username");
             String password = rs.getString("password");
-            Account manager = new Account(name, password);
-            manager.setCode(code);
-            list.add(manager);
+            Account member = new Account(name, password);
+            member.setCode(code);
+            list.add(member);
         }
         return list;
     }
+    
+    public static List<Hotel> queryGetHotels(Connection conn) throws SQLException {
+        String sql = "Select * from hotel ";
  
-    public static Account findHotel(Connection conn, String code) throws SQLException {
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        ResultSet rs = pstm.executeQuery();
+        List<Hotel> list = new ArrayList<Hotel>();
+        while (rs.next()) {
+            String code = rs.getString("id");
+            String name = rs.getString("name");
+            String location = rs.getString("location");
+            Hotel hotel = new Hotel();
+            hotel.setId(code);
+            hotel.setCity(location);
+            hotel.setName(name);
+            list.add(hotel);
+        }
+        return list;
+    }
+    
+        public static void insertRecommendation(Connection conn, Recommendation recom) throws SQLException {
+        String sql = "Insert into recommendation(uId, hotelId) values (?,?)";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setString(1, recom.getUserID());
+        pstm.setString(2, recom.getHotelID());
+ 
+        pstm.executeUpdate();
+    }
+        
+    public static Account findMember(Connection conn, String code) throws SQLException {
         String sql = "Select * from users a where a.id=?";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
@@ -49,42 +82,10 @@ public class ManagerDBUtils {
             String username = rs.getString("username");
             String password = rs.getString("password");
             
-            Account manager = new Account(username, password);
-            return manager;
+            Account member = new Account(username, password);
+            member.setCode(code);
+            return member;
         }
         return null;
-    }
- 
-    public static void updateHotel(Connection conn, Account manager) throws SQLException {
-        String sql = "Update users set username =?, password=? where id=? ";
- 
-        PreparedStatement pstm = conn.prepareStatement(sql);
- 
-        pstm.setString(1, manager.getUserName());
-        pstm.setString(2, manager.getPassword());
-        pstm.setString(3, manager.getCode());
-        pstm.executeUpdate();
-    }
- 
-    public static void insertHotel(Connection conn, Account manager) throws SQLException {
-        String sql = "Insert into Product(username, password, role) values (?,?,?)";
- 
-        PreparedStatement pstm = conn.prepareStatement(sql);
- 
-        pstm.setString(1, manager.getUserName());
-        pstm.setString(2, manager.getPassword());
-        pstm.setString(3, manager.getRole());
- 
-        pstm.executeUpdate();
-    }
- 
-    public static void deleteHotel(Connection conn, String code) throws SQLException {
-        String sql = "Delete From users where Code= ?";
- 
-        PreparedStatement pstm = conn.prepareStatement(sql);
- 
-        pstm.setString(1, code);
- 
-        pstm.executeUpdate();
     }
 }

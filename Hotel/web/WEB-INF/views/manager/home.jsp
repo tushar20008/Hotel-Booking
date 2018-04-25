@@ -13,5 +13,7 @@
     </head>
     <body>
         <h1>Manager Home World!</h1>
+        <a href="${pageContext.request.contextPath}/memberList">Member List</a>
+        <a href="${pageContext.request.contextPath}/hotelList">Hotel List</a>
     </body>
 </html>
