@@ -30,6 +30,9 @@ public class HotelInfo {
         this.singleRoomPrice = singleRoomPrice;
         this.doubleRoomPrice = doubleRoomPrice;
     }
+
+    public HotelInfo() {
+    }
     
     public int getDiscount() {
         return discount;

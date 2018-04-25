@@ -11,66 +11,62 @@ package hotel.beans;
  */
 public class Booking {
     
-    private String userID;
-    private String roomID;
-    private String hotelID;
-    private String CityID;
-    private int BookingID;
+    private String date, username, hotelId, bookingId;
+    private int nSingleRoom, nDoubleRoom, cost;
     
-    public Booking(String HotelID, String RoomID, String UserID,String CityID) {
-       
-            setHotelID(HotelID);
-            setRoomID(RoomID);
-            setUserID(UserID);
-            setCityID(CityID);
-         }
-
-   
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
-    public String getRoomID() {
-        return roomID;
-    }
-
-    public void setRoomID(String roomID) {
-        this.roomID = roomID;
-    }
-
-    public String getHotelID() {
-        return hotelID;
-    }
-
-    public void setHotelID(String hotelID) {
-        this.hotelID = hotelID;
-    }
-
-    public void setCityID(String CityID) {
-       
-        this.CityID = CityID;
+    public void setBookingId(String id){
+        this.bookingId = id;
     }
     
-    public String getCityID()
-            
-    {
-       return this.CityID; 
+    public String getBookingId(){
+        return bookingId;
     }
-
-    public void setBookingID(int bookingID) {
+    
+    public void setHotelId(String id){
+        this.hotelId = id;
+    }
+    
+    public String getHotelId(){
+        return hotelId;
+    }
+       
+    public void setUsername(String username){
+        this.username = username;
+    }
+    
+    public String getUsername(){
+        return username;
+    }
+    
+    public void setDate(String date){
+        this.date = date;
+    }
+    
+    public String getDate(){
+        return date;
+    }
+    
+    public void setCost(int cost){
+        this.cost = cost;
+    }
+    
+    public int getCost(){
+        return cost;
+    }
+    
+    public void setSingleRoom(int n){
+        this.nSingleRoom = n;
+    }
+    
+    public int getSingleRoom(){
+        return nSingleRoom;
+    }
+    
+    public void setDoubleRoom(int n){
+        this.nDoubleRoom = n;
+    }
         
-        this.BookingID=bookingID;
-       }
-    
-    public int getBookingID ()
-            
-    {
-        return this.BookingID;
+    public int getDoubleRoom(){
+        return nDoubleRoom;
     }
-    
 }

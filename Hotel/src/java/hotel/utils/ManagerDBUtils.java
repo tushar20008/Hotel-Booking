@@ -52,7 +52,7 @@ public class ManagerDBUtils {
             String location = rs.getString("location");
             HotelInfo hotel = new HotelInfo();
             hotel.setId(code);
-            hotel.setCity(location);
+            hotel.setLocation(location);
             hotel.setName(name);
             list.add(hotel);
         }

@@ -6,6 +6,7 @@
 package hotel.utils;
 
 import hotel.beans.Account;
+import hotel.beans.Booking;
 import hotel.beans.HotelInfo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,5 +79,20 @@ public class CustomerDBUtils {
         System.out.println(canAdd);
         return canAdd;
     }
-
+    
+        public static void bookHotel(Connection conn, Booking booking) throws SQLException {
+        String sql = "Insert into booking(date, nSingleRoom, nDoubleRoom, username, password, hotelId, cost, bookingId) values (?,?,?,?,?,?,?)";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setString(1, booking.getDate());
+        pstm.setInt(2, booking.getSingleRoom());
+        pstm.setInt(3, booking.getDoubleRoom());
+        pstm.setString(4, booking.getUsername());
+        pstm.setString(5, booking.getHotelId());
+        pstm.setInt(6, booking.getCost());
+        pstm.setString(7, booking.getBookingId());
+ 
+        pstm.executeUpdate();
+    }
 }
