@@ -25,16 +25,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Tushar
  */
 @WebServlet(name = "SearchHotel", urlPatterns = {"/searchHotel"})
 public class SearchHotel extends HttpServlet {
-       public SearchHotel() {
-       super();
-   }
-       
+
+    public SearchHotel() {
+        super();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,48 +49,56 @@ public class SearchHotel extends HttpServlet {
             throws ServletException, IOException {
         String location = request.getParameter("location");
         String start = request.getParameter("startdate");
+        System.out.println(start);
         String end = request.getParameter("enddate");
+        System.out.println(end);
+        int singleRooms = Integer.parseInt(request.getParameter("singleRooms"));
+        int doubleRooms = Integer.parseInt(request.getParameter("doubleRooms"));
 
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = null;
         Date endDate = null;
         try {
             startDate = ft.parse(start);
-             endDate = ft.parse(end);
+            endDate = ft.parse(end);            
         } catch (ParseException ex) {
             Logger.getLogger(SearchHotel.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-        
+        }
+        System.out.println(startDate);
+        System.out.println(endDate);
+
         boolean hasError;
-        String errorString;
+        String errorString = "";
+        List<Hotel> availableHotels = null;
         
-        if (location == null || startDate == null || endDate == null || startDate.before(endDate)){
+        
+        if (location == null || start == null || end == null) {
             hasError = true;
             errorString = "Search parameters are wrong";
         } else {
-            Connection conn = MyUtils.getStoredConnection(request);
-            
-            List<Hotel> hotelList = null;
-            hotelList = CustomerDBUtils.queryHotelsByLocation(conn, location);
-            
-            List<Hotel> availableHotels = null;
-            for(Hotel h: hotelList){
+            try {
+                Connection conn = MyUtils.getStoredConnection(request);
                 
+                List<Hotel> hotelList = null;
+                hotelList = CustomerDBUtils.queryHotelsByLocation(conn, location);
+                
+                for (Hotel h : hotelList) {
+                    
+                    Boolean canAdd = CustomerDBUtils.queryAvailabilityOfHotelByDates(conn, startDate, endDate, singleRooms, doubleRooms, h);
+                    if(canAdd)
+                        availableHotels.add(h);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(SearchHotel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-//            try {
-//                // Find the user in the DB.
-//                user = CommonUtils.findUser(conn, userName, password);
-//
-//                if (user == null) {
-//                    hasError = true;
-//                    errorString = "User Name or password invalid";
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                hasError = true;
-//                errorString = e.getMessage();
-//            }
         }
+        // Store info in request attribute, before forward to views
+            request.setAttribute("errorString", errorString);
+            request.setAttribute("availableHotelsList", availableHotels);
+
+            // Forward to /WEB-INF/views/productListView.jsp
+            RequestDispatcher dispatcher = request.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/views/customer/searchHotel.jsp");
+            dispatcher.forward(request, response);
     }
 }
