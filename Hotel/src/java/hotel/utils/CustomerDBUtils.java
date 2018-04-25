@@ -21,6 +21,18 @@ import java.util.List;
  * @author Aditya
  */
 public class CustomerDBUtils {
+    
+    public static void insertCustomer(Connection conn, Account customer) throws SQLException {
+        String sql = "Insert into users(username, password, role) values (?,?,?)";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setString(1, customer.getUserName());
+        pstm.setString(2, customer.getPassword());
+        pstm.setString(3, customer.getRole());
+ 
+        pstm.executeUpdate();
+    }
 
     public static List<HotelInfo> queryHotelsByLocation(Connection conn, String location) throws SQLException {
         String sql = "Select * from hotel where location=?" ;
