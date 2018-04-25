@@ -15,7 +15,7 @@ public class Hotel {
     private String name;
     private String id;
     private String city;
-    private int price;
+    private int price, numberOfSingle, numberOfDouble, discount;
     
     public String getName() {
         return name;
@@ -48,5 +48,28 @@ public class Hotel {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public void setNumberOfSingle(int nSingle) {
+        this.numberOfSingle = nSingle;
+    }
     
+     public int getNumberOfSingle() {
+        return numberOfSingle;
+    }
+
+    public void setNumberOfDouble(int nDouble) {
+        this.numberOfDouble = nDouble;
+    }
+    
+     public int getNumberOfDouble() {
+        return numberOfDouble;
+    }
+     
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+    
+     public int getDiscount() {
+        return discount;
+    }
 }

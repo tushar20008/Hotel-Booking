@@ -38,7 +38,7 @@
                <tr>
                   <td colspan = "2">
                       <input type="submit" value="Submit" />
-                      <a href="${pageContext.request.contextPath}/hotelList">Cancel</a>
+                      <a href="${pageContext.request.contextPath}/memberList">Cancel</a>
                   </td>
                </tr>
             </table>
