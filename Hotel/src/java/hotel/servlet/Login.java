@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
         // Forward to /WEB-INF/views/loginView.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)
         RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
  
         dispatcher.forward(request, response);
  
@@ -49,8 +49,8 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        String rememberMeStr = request.getParameter("rememberMe");
-        boolean remember = "Y".equals(rememberMeStr);
+        //String rememberMeStr = request.getParameter("rememberMe");
+        //boolean remember = "Y".equals(rememberMeStr);
  
         Account user = null;
         boolean hasError = false;
@@ -97,25 +97,25 @@ public class Login extends HttpServlet {
             MyUtils.storeLoginedUser(session, user);
  
             // If user checked "Remember me".
-            if (remember) {
+            //if (remember) {
                 MyUtils.storeUserCookie(response, user);
-            }
+            //}
             // Else delete cookie.
-            else {
-                MyUtils.deleteUserCookie(response);
-            }
+            //else {
+            //    MyUtils.deleteUserCookie(response);
+            //}
  
             if(user.getRole() != null)
                 // Todo: Different Redirects for User / Manager / Admin
             switch (user.getRole()) {
                 case "customer":
-                    response.sendRedirect(request.getContextPath() + "/user/Home");
+                    response.sendRedirect(request.getContextPath() + "/user/home");
                     break;
                 case "manager":
-                    response.sendRedirect(request.getContextPath() + "/manager/Home");
+                    response.sendRedirect(request.getContextPath() + "/manager/home");
                     break;
                 case "admin":
-                    response.sendRedirect(request.getContextPath() + "/admin/Home");
+                    response.sendRedirect(request.getContextPath() + "/admin/home");
                     break;
                 default:
                     break;

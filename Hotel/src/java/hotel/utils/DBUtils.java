@@ -18,8 +18,7 @@ public class DBUtils {
     public static Account findUser(Connection conn, //
             String userName, String password) throws SQLException {
  
-        String sql = "Select a.User_Name, a.Password from users a " //
-                + " where a.User_Name = ? and a.password= ?";
+        String sql = "Select * from users a where a.username = ? and a.password= ?";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1, userName);
@@ -36,8 +35,8 @@ public class DBUtils {
  
     public static Account findUser(Connection conn, String userName) throws SQLException {
  
-        String sql = "Select a.User_Name, a.Password from users a "//
-                + " where a.User_Name = ? ";
+        String sql = "Select a.username, a.password from users a "//
+                + " where a.username = ? ";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1, userName);

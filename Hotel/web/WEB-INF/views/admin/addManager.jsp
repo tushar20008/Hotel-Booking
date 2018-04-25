@@ -1,6 +1,6 @@
 <%-- 
-    Document   : test
-    Created on : 25 Apr, 2018, 7:30:01 AM
+    Document   : addManager
+    Created on : 25 Apr, 2018, 10:42:51 AM
     Author     : Tushar
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>User Test Page!</h1>
+        <h1>Hello World!</h1>
     </body>
 </html>
