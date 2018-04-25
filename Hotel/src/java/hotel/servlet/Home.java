@@ -27,11 +27,16 @@ public class Home extends HttpServlet {
            throws ServletException, IOException {
  
         String role = request.getParameter("user");
-        
+        RequestDispatcher dispatcher = null;
        // Forward to /WEB-INF/views/homeView.jsp
-       //RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/user/home.jsp"); 
-       //dispatcher.forward(request, response);
-        
+       
+        if(role != null){
+            dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/"+role+"/home.jsp");         
+        }
+        else{
+            dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
+        }
+        dispatcher.forward(request, response);
    }
  
    @Override
