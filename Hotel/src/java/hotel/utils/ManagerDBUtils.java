@@ -6,7 +6,7 @@
 package hotel.utils;
 
 import hotel.beans.Account;
-import hotel.beans.Hotel;
+import hotel.beans.HotelInfo;
 import hotel.beans.Recommendation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,18 +39,18 @@ public class ManagerDBUtils {
         return list;
     }
     
-    public static List<Hotel> queryGetHotels(Connection conn) throws SQLException {
+    public static List<HotelInfo> queryGetHotels(Connection conn) throws SQLException {
         String sql = "Select * from hotel ";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
  
         ResultSet rs = pstm.executeQuery();
-        List<Hotel> list = new ArrayList<Hotel>();
+        List<HotelInfo> list = new ArrayList<HotelInfo>();
         while (rs.next()) {
             String code = rs.getString("id");
             String name = rs.getString("name");
             String location = rs.getString("location");
-            Hotel hotel = new Hotel();
+            HotelInfo hotel = new HotelInfo();
             hotel.setId(code);
             hotel.setCity(location);
             hotel.setName(name);
@@ -89,7 +89,7 @@ public class ManagerDBUtils {
         return null;
     }
     
-    public static Hotel findHotel(Connection conn, String code) throws SQLException {
+    public static HotelInfo findHotel(Connection conn, String code) throws SQLException {
         String sql = "Select * from hotel a where a.hotelId=?";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class ManagerDBUtils {
             int singleRoomPrice = rs.getInt("singleRoomPrice");
             int doubleRoomPrice = rs.getInt("doubleRoomPrice");
             
-            Hotel hotel = new Hotel();
+            HotelInfo hotel = new HotelInfo();
             hotel.setName(name);
             hotel.setLocation(location);
             hotel.setDiscount(discount);

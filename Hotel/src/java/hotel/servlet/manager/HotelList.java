@@ -6,7 +6,7 @@
 package hotel.servlet.manager;
 
 import hotel.beans.Account;
-import hotel.beans.Hotel;
+import hotel.beans.HotelInfo;
 import hotel.utils.ManagerDBUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class HotelList extends HttpServlet {
         Connection conn = MyUtils.getStoredConnection(request);
  
         String errorString = null;
-        List<Hotel> list = null;
+        List<HotelInfo> list = null;
         try {
             list = ManagerDBUtils.queryGetHotels(conn);
         } catch (SQLException e) {

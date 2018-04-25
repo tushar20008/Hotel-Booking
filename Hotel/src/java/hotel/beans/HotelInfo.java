@@ -10,17 +10,27 @@ package hotel.beans;
  * @author Tushar
  */
 
-public class Hotel {
+public class HotelInfo {
     
     private String name;
     private String id;
     private String location;
     private int singleRoomCap;
-    private float singleRoomPrice;
+    private int singleRoomPrice;
     private int doubleRoomCap;
-    private float doubleRoomPrice;
+    private int doubleRoomPrice;
     private int discount;
 
+    public HotelInfo(String id, String name, String lcn, int singleRoomCap, int singleRoomPrice, int doubleRoomCap, int doubleRoomPrice) {
+        this.id = id;
+        this.name = name;
+        this.location = lcn;
+        this.singleRoomCap = singleRoomCap;
+        this.doubleRoomCap = doubleRoomCap;
+        this.singleRoomPrice = singleRoomPrice;
+        this.doubleRoomPrice = doubleRoomPrice;
+    }
+    
     public int getDiscount() {
         return discount;
     }
@@ -46,11 +56,11 @@ public class Hotel {
         this.singleRoomCap = singleRoomCap;
     }
 
-    public float getSingleRoomPrice() {
+    public int getSingleRoomPrice() {
         return singleRoomPrice;
     }
 
-    public void setSingleRoomPrice(float singleRoomPrice) {
+    public void setSingleRoomPrice(int singleRoomPrice) {
         this.singleRoomPrice = singleRoomPrice;
     }
 
@@ -62,11 +72,11 @@ public class Hotel {
         this.doubleRoomCap = doubleRoomCap;
     }
 
-    public float getDoubleRoomPrice() {
+    public int getDoubleRoomPrice() {
         return doubleRoomPrice;
     }
 
-    public void setDoubleRoomPrice(float doubleRoomPrice) {
+    public void setDoubleRoomPrice(int doubleRoomPrice) {
         this.doubleRoomPrice = doubleRoomPrice;
     }
 
@@ -84,13 +94,5 @@ public class Hotel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCity() {
-        return location;
-    }
-
-    public void setCity(String city) {
-        this.location = city;
-    }    
+    }   
 }

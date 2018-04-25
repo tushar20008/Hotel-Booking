@@ -6,7 +6,7 @@
 package hotel.servlet.manager;
 
 import hotel.beans.Account;
-import hotel.beans.Hotel;
+import hotel.beans.HotelInfo;
 import hotel.utils.AdminDBUtils;
 import hotel.utils.ManagerDBUtils;
 import hotel.utils.MyUtils;
@@ -41,7 +41,7 @@ public class EditHotel extends HttpServlet {
  
         String code = (String) request.getParameter("code");
  
-        Hotel hotel = null;
+        HotelInfo hotel = null;
  
         String errorString = null;
  
@@ -83,7 +83,7 @@ public class EditHotel extends HttpServlet {
         int doubleRoomPrice = Integer.parseInt(request.getParameter("doubleRoomPrice"));
         String code = (String) request.getParameter("code");
         
-        Hotel hotel = new Hotel();
+        HotelInfo hotel = new HotelInfo();
         hotel.setName(name);
         hotel.setLocation(location);
         hotel.setDiscount(discount);

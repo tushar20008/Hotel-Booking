@@ -33,20 +33,19 @@ public class CommonUtils {
         }
         return null;
     }
+    
+    public static Account findUser(Connection conn, //
+            String userName) throws SQLException {
  
-    public static Account findUser(Connection conn, String userName) throws SQLException {
- 
-        String sql = "Select a.username, a.password from users a "//
-                + " where a.username = ? ";
+        String sql = "Select * from users a where a.username = ? ";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1, userName);
- 
         ResultSet rs = pstm.executeQuery();
  
         if (rs.next()) {
-            String password = rs.getString("Password");
             String role = rs.getString("role");
+            String password = rs.getString("password");
             Account user = new Account(userName, password, role);
             return user;
         }

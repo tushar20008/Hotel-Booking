@@ -5,7 +5,8 @@
  */
 package hotel.servlet.user;
 
-import hotel.beans.Hotel;
+import hotel.beans.HotelInfo;
+import static hotel.conn.SQLServerConnUtils_SQLJDBC.getSQLServerConnection_SQLJDBC;
 import hotel.utils.CommonUtils;
 import hotel.utils.CustomerDBUtils;
 import hotel.utils.MyUtils;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,41 +50,29 @@ public class SearchHotel extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String location = request.getParameter("location");
-        String start = request.getParameter("startdate");
-        System.out.println(start);
-        String end = request.getParameter("enddate");
-        System.out.println(end);
+        String startDate = request.getParameter("startdate");
+        System.out.println(startDate);
+        String endDate = request.getParameter("enddate");
+        System.out.println(endDate);
         int singleRooms = Integer.parseInt(request.getParameter("singleRooms"));
         int doubleRooms = Integer.parseInt(request.getParameter("doubleRooms"));
 
-        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = null;
-        Date endDate = null;
-        try {
-            startDate = ft.parse(start);
-            endDate = ft.parse(end);            
-        } catch (ParseException ex) {
-            Logger.getLogger(SearchHotel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(startDate);
-        System.out.println(endDate);
-
         boolean hasError;
         String errorString = "";
-        List<Hotel> availableHotels = null;
+        List<HotelInfo> availableHotels = new ArrayList<HotelInfo>();
         
         
-        if (location == null || start == null || end == null) {
+        if (location == null || startDate == null || endDate == null) {
             hasError = true;
             errorString = "Search parameters are wrong";
         } else {
             try {
                 Connection conn = MyUtils.getStoredConnection(request);
                 
-                List<Hotel> hotelList = null;
+                List<HotelInfo> hotelList = null;
                 hotelList = CustomerDBUtils.queryHotelsByLocation(conn, location);
                 
-                for (Hotel h : hotelList) {
+                for (HotelInfo h : hotelList) {
                     
                     Boolean canAdd = CustomerDBUtils.queryAvailabilityOfHotelByDates(conn, startDate, endDate, singleRooms, doubleRooms, h);
                     if(canAdd)

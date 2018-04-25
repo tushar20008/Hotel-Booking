@@ -10,7 +10,7 @@
 package hotel.servlet.manager;
 
 import hotel.beans.Account;
-import hotel.beans.Hotel;
+import hotel.beans.HotelInfo;
 import hotel.beans.Recommendation;
 import hotel.utils.AdminDBUtils;
 import hotel.utils.ManagerDBUtils;
@@ -44,7 +44,7 @@ public class RecommendHotel extends HttpServlet {
         Connection conn = MyUtils.getStoredConnection(request);
  
         String errorString = null;
-        List<Hotel> list = null;
+        List<HotelInfo> list = null;
         try {
             list = ManagerDBUtils.queryGetHotels(conn);
         } catch (SQLException e) {
