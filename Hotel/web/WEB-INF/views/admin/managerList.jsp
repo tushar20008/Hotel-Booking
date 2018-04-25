@@ -26,14 +26,14 @@
        </tr>
        <c:forEach items="${managerList}" var="manager" >
           <tr>
-             <td>${manager.code}</td>
+             <td>${manager.id}</td>
              <td>${manager.username}</td>
              <td>${manager.password}</td>
              <td>
-                <a href="editManager?code=${manager.code}">Edit</a>
+                <a href="editManager?code=${manager.id}">Edit</a>
              </td>
              <td>
-                <a href="deleteManager?code=${manager.code}">Delete</a>
+                <a href="deleteManager?code=${manager.id}">Delete</a>
              </td>
           </tr>
        </c:forEach>

@@ -45,7 +45,7 @@ public class ManagerList extends HttpServlet {
         // Store info in request attribute, before forward to views
         request.setAttribute("errorString", errorString);
         request.setAttribute("managerList", list);
-         
+        
         // Forward to /WEB-INF/views/productListView.jsp
         RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/views/admin/managerList.jsp");
