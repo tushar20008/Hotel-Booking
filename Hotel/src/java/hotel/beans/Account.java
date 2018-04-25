@@ -11,7 +11,7 @@ package hotel.beans;
  */
 public class Account {
     
-   private String userName, role;
+   private String userName, role, code;
    private String password;
     
    public Account(String name, String password) {
@@ -47,6 +47,14 @@ public class Account {
  
    public void setRole(String role) {
        this.role = role;
+   }
+   
+      public String getCode() {
+       return code;
+   }
+ 
+   public void setCode(String code) {
+       this.code = code;
    }
  
 }

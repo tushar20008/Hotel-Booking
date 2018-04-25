@@ -9,9 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Admin Functionalities</title>
     </head>
     <body>
         <h1>Admin Home World!</h1>
+        <a href="${pageContext.request.contextPath}/managerList">Manager List</a>
+        <a href="${pageContext.request.contextPath}/createManager">Create Manager</a>
     </body>
 </html>
