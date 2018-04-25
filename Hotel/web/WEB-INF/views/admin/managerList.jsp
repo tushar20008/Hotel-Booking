@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,14 +27,14 @@
        </tr>
        <c:forEach items="${managerList}" var="manager" >
           <tr>
-             <td>${manager.id}</td>
-             <td>${manager.username}</td>
+             <td>${manager.code}</td>
+             <td>${manager.userName}</td>
              <td>${manager.password}</td>
              <td>
-                <a href="editManager?code=${manager.id}">Edit</a>
+                <a href="editManager?code=${manager.code}">Edit</a>
              </td>
              <td>
-                <a href="deleteManager?code=${manager.id}">Delete</a>
+                <a href="deleteManager?code=${manager.code}">Delete</a>
              </td>
           </tr>
        </c:forEach>
