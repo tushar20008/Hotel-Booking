@@ -6,7 +6,7 @@
 package hotel.servlet.admin;
 
 import hotel.beans.Account;
-import hotel.utils.DBUtils;
+import hotel.utils.AdminDBUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,7 +37,7 @@ public class ManagerList extends HttpServlet {
         String errorString = null;
         List<Account> list = null;
         try {
-            list = DBUtils.queryGetManagers(conn);
+            list = AdminDBUtils.queryGetManagers(conn);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();

@@ -6,7 +6,8 @@
 package hotel.servlet;
 
 import hotel.beans.Account;
-import hotel.utils.DBUtils;
+import hotel.utils.AdminDBUtils;
+import hotel.utils.CommonUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.sql.Connection;
@@ -63,7 +64,7 @@ public class Login extends HttpServlet {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
                 // Find the user in the DB.
-                user = DBUtils.findUser(conn, userName, password);
+                user = CommonUtils.findUser(conn, userName, password);
  
                 if (user == null) {
                     hasError = true;

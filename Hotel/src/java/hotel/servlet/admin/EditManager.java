@@ -6,7 +6,7 @@
 package hotel.servlet.admin;
 
 import hotel.beans.Account;
-import hotel.utils.DBUtils;
+import hotel.utils.AdminDBUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.sql.Connection;
@@ -40,7 +40,7 @@ public class EditManager extends HttpServlet {
         String errorString = null;
  
         try {
-            manager = DBUtils.findManager(conn, code);
+            manager = AdminDBUtils.findManager(conn, code);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -81,7 +81,7 @@ public class EditManager extends HttpServlet {
         String errorString = null;
  
         try {
-            DBUtils.updateManager(conn, manager);
+            AdminDBUtils.updateManager(conn, manager);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();

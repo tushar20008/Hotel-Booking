@@ -6,7 +6,8 @@
 package hotel.filter;
 
 import hotel.beans.Account;
-import hotel.utils.DBUtils;
+import hotel.utils.AdminDBUtils;
+import hotel.utils.CommonUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.sql.Connection;
@@ -60,7 +61,7 @@ public class CookieFilter implements Filter {
         if (checked == null && conn != null) {
             String userName = MyUtils.getUserNameInCookie(req);
             try {
-                Account user = DBUtils.findUser(conn, userName);
+                Account user = CommonUtils.findUser(conn, userName);
                 MyUtils.storeLoginedUser(session, user);
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -6,7 +6,7 @@
 package hotel.servlet.admin;
 
 import hotel.beans.Account;
-import hotel.utils.DBUtils;
+import hotel.utils.AdminDBUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.sql.Connection;
@@ -55,7 +55,7 @@ public class CreateManager extends HttpServlet {
  
         if (errorString == null) {
             try {
-                DBUtils.insertManager(conn, manager);
+                AdminDBUtils.insertManager(conn, manager);
             } catch (SQLException e) {
                 e.printStackTrace();
                 errorString = e.getMessage();
