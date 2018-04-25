@@ -23,7 +23,7 @@
             <table border="0">
                <tr>
                   <td>Code</td>
-                  <td style="color:red;">${hotel.code}</td>
+                  <td style="color:red;">${hotel.id}</td>
                </tr>
                <tr>
                   <td>Name</td>
@@ -35,7 +35,7 @@
                </tr>
                <tr>
                   <td>Discount</td>
-                  <td><input type="number" name="location" value="${hotel.discount}" /></td>
+                  <td><input type="number" name="discount" value="${hotel.discount}" /></td>
                </tr>
                <tr>
                   <td>Number of Single Rooms</td>

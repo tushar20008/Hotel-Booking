@@ -29,6 +29,7 @@ public class HotelInfo {
         this.doubleRoomCap = doubleRoomCap;
         this.singleRoomPrice = singleRoomPrice;
         this.doubleRoomPrice = doubleRoomPrice;
+        this.discount = 0;
     }
 
     public HotelInfo() {

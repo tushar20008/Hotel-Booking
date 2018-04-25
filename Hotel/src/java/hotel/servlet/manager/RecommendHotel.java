@@ -84,11 +84,11 @@ public class RecommendHotel extends HttpServlet {
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
  
-        String userId = (String) request.getParameter("code");
+        String username = (String) request.getParameter("userName");
         String hotelId = (String) request.getParameter("hotel");
         
         Recommendation booking = new Recommendation(); 
-        booking.setUserID(userId);
+        booking.setUserID(username);
         booking.setHotelID(hotelId);
         
         String errorString = null;
@@ -111,7 +111,7 @@ public class RecommendHotel extends HttpServlet {
         // If everything nice.
         // Redirect to the product listing page.
         else {
-            response.sendRedirect(request.getContextPath() + "/managerList");
+            response.sendRedirect(request.getContextPath() + "/memberList");
         }
     }
  
