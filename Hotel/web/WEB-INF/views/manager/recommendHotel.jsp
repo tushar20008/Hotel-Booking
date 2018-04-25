@@ -21,10 +21,12 @@
       <c:if test="${not empty member}">
          <form method="POST" action="${pageContext.request.contextPath}/recommendHotel">
             <input type="hidden" name="code" value="${member.code}" />
+            <input type="hidden" name="userName" value="${member.userName}" />
             <table border="0">
                <tr>
                   <td>Code</td>
                   <td style="color:red;">${member.code}</td>
+                  <td style="color:red;">${member.userName}</td>
                </tr>
                <tr>
                    <td colspan = "2">

@@ -47,6 +47,7 @@ public class EditHotel extends HttpServlet {
  
         try {
             hotel = ManagerDBUtils.findHotel(conn, code);
+            System.out.println(hotel.getId());
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -62,7 +63,7 @@ public class EditHotel extends HttpServlet {
         request.setAttribute("hotel", hotel);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/admin/editHotel.jsp");
+                .getRequestDispatcher("/WEB-INF/views/manager/editHotel.jsp");
         dispatcher.forward(request, response);
  
     }
@@ -74,8 +75,8 @@ public class EditHotel extends HttpServlet {
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
  
-        String name = (String) request.getParameter("username");
-        String location = (String) request.getParameter("password");
+        String name = (String) request.getParameter("name");
+        String location = (String) request.getParameter("location");
         int discount = Integer.parseInt(request.getParameter("discount"));
         int singleRoomCap = Integer.parseInt(request.getParameter("singleRoomCap"));
         int doubleRoomCap = Integer.parseInt(request.getParameter("doubleRoomCap"));
@@ -83,25 +84,12 @@ public class EditHotel extends HttpServlet {
         int doubleRoomPrice = Integer.parseInt(request.getParameter("doubleRoomPrice"));
         String code = (String) request.getParameter("code");
         
-        HotelInfo hotel = new HotelInfo();
-        hotel.setName(name);
-        hotel.setLocation(location);
-        hotel.setDiscount(discount);
-        hotel.setSingleRoomCap(singleRoomCap);
-        hotel.setDoubleRoomCap(doubleRoomCap);
-        hotel.setSingleRoomPrice(singleRoomPrice);
-        hotel.setDoubleRoomPrice(doubleRoomPrice);
-        hotel.setId(code);
-        
+        HotelInfo hotel = new HotelInfo(code, name, location, singleRoomCap, singleRoomPrice, doubleRoomCap, doubleRoomPrice);
+        hotel.setDiscount(discount);        
         
         String errorString = null;
  
-        try {
-            ManagerDBUtils.updateHotel(conn, hotel);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            errorString = e.getMessage();
-        }
+        ManagerDBUtils.updateHotel(conn, hotel);
         // Store infomation to request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
         request.setAttribute("hotel", hotel);
@@ -109,7 +97,7 @@ public class EditHotel extends HttpServlet {
         // If error, forward to Edit page.
         if (errorString != null) {
             RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/views/admin/editHotel.jsp");
+                    .getRequestDispatcher("/WEB-INF/views/manager/editHotel.jsp");
             dispatcher.forward(request, response);
         }
         // If everything nice.
