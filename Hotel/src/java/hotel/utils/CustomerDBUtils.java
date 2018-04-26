@@ -8,6 +8,7 @@ package hotel.utils;
 import hotel.beans.Account;
 import hotel.beans.Booking;
 import hotel.beans.HotelInfo;
+import hotel.beans.Recommendation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -107,4 +108,56 @@ public class CustomerDBUtils {
  
         pstm.executeUpdate();
     }
-}
+        
+    public static List<HotelInfo> queryGetRecoms(Connection conn, String username) throws SQLException {
+        String sql = "Select * from recommendation where username=?" ;
+
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, username);
+
+        ResultSet rs = pstm.executeQuery();
+
+        List<HotelInfo> list = new ArrayList<>();
+        
+        while (rs.next()) {
+            
+            String id = rs.getString("hotelId");
+            HotelInfo hotel = new HotelInfo();
+            hotel.setId(id);
+            list.add(hotel);
+        }
+      
+        return list;
+    }
+    
+    public static List<HotelInfo> queryGetHotelFromRec(Connection conn, List<HotelInfo> hotels) throws SQLException {
+        
+        List<HotelInfo> list = new ArrayList<>();
+        for (HotelInfo h : hotels) {
+            String sql = "Select * from hotel where hotelId=?" ;
+
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, h.getId());
+
+            ResultSet rs = pstm.executeQuery();
+            
+            while (rs.next()) {
+            
+                String id = rs.getString("hotelId");
+                String name = rs.getString("name");
+                String lcn = rs.getString("location");
+                int singleRoomCap = rs.getInt("singleRooms");
+                int singleRoomPrice = rs.getInt("singleRoomPrice");
+                int doubleRoomCap = rs.getInt("doubleRooms");
+                int doubleRoomPrice = rs.getInt("doubleRoomPrice");
+            
+                HotelInfo hotel = new HotelInfo(id, name, lcn, singleRoomCap, singleRoomPrice, doubleRoomCap, doubleRoomPrice);
+           
+                list.add(hotel);
+            }
+        }
+        
+        return list;
+    }
+}   
+    
