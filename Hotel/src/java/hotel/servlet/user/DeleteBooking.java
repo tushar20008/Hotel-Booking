@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotel.servlet.admin;
+package hotel.servlet.user;
 
 import hotel.utils.AdminDBUtils;
-import hotel.utils.CustomerDBUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -22,12 +22,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Tushar
  */
-@WebServlet(name = "DeleteManager", urlPatterns = {"/deleteManager"})
-public class DeleteManager extends HttpServlet {
-
-    private static final long serialVersionUID = 1L;
+@WebServlet(name = "DeleteBooking", urlPatterns = {"/deleteBooking"})
+public class DeleteBooking extends HttpServlet {
  
-    public DeleteManager() {
+    public DeleteBooking() {
         super();
     }
  
@@ -41,7 +39,7 @@ public class DeleteManager extends HttpServlet {
         String errorString = null;
  
         try {
-            CustomerDBUtils.deleteBooking(conn, code);
+            AdminDBUtils.deleteManager(conn, code);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -53,13 +51,13 @@ public class DeleteManager extends HttpServlet {
             request.setAttribute("errorString", errorString);
             // 
             RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/views/customer/deleteBooking.jsp");
+                    .getRequestDispatcher("/WEB-INF/views/admin/deleteManager.jsp");
             dispatcher.forward(request, response);
         }
         // If everything nice.
         // Redirect to the product listing page.        
         else {
-            response.sendRedirect(request.getContextPath() + "/bookingList");
+            response.sendRedirect(request.getContextPath() + "/managerList");
         }
  
     }

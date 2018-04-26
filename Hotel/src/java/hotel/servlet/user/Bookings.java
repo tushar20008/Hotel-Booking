@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotel.servlet.admin;
+package hotel.servlet.user;
 
-import hotel.utils.AdminDBUtils;
+import hotel.beans.Booking;
+import hotel.beans.HotelInfo;
 import hotel.utils.CustomerDBUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,12 +25,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Tushar
  */
-@WebServlet(name = "DeleteManager", urlPatterns = {"/deleteManager"})
-public class DeleteManager extends HttpServlet {
+@WebServlet(name = "Bookings", urlPatterns = {"/bookings"})
+public class Bookings extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
- 
-    public DeleteManager() {
+    public Bookings() {
         super();
     }
  
@@ -35,33 +36,25 @@ public class DeleteManager extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
- 
-        String code = (String) request.getParameter("code");
- 
+        String username = MyUtils.getUserNameInCookie(request);
+        
         String errorString = null;
- 
+        List<Booking> list = null;
+        
         try {
-            CustomerDBUtils.deleteBooking(conn, code);
+            list = CustomerDBUtils.queryGetBookings(conn, username);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
-        } 
-         
-        // If has an error, redirecte to the error page.
-        if (errorString != null) {
-            // Store the information in the request attribute, before forward to views.
-            request.setAttribute("errorString", errorString);
-            // 
-            RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/views/customer/deleteBooking.jsp");
-            dispatcher.forward(request, response);
         }
-        // If everything nice.
-        // Redirect to the product listing page.        
-        else {
-            response.sendRedirect(request.getContextPath() + "/bookingList");
-        }
- 
+        // Store info in request attribute, before forward to views
+        request.setAttribute("errorString", errorString);
+        request.setAttribute("bookingList", list);
+        
+        // Forward to /WEB-INF/views/productListView.jsp
+        RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/views/customer/bookingList.jsp");
+        dispatcher.forward(request, response);
     }
  
     @Override
@@ -69,5 +62,4 @@ public class DeleteManager extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
- 
 }

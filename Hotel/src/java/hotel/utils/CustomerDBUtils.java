@@ -159,5 +159,80 @@ public class CustomerDBUtils {
         
         return list;
     }
+
+    public static List<Booking> queryGetBookings(Connection conn, String username) throws SQLException {
+        String sql ="Select bookingId, Distinct(hotelId), Distinct(nSingleRoom), Distinct(nDoubleRoom), Distinct(Cost) " +
+                    "from booking where username=? Group by bookingId ";
+        
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, username);
+
+        ResultSet rs = pstm.executeQuery();
+        List<Booking> list = new ArrayList<>();
+        while (rs.next()) {
+            
+                String id = rs.getString("hotelId");
+                String bookingId = rs.getString("bookingId");
+                int nSingleRoom = rs.getInt("nSingleRoom");
+                int nDoubleRoom = rs.getInt("nDoubleRoom");
+                int cost = rs.getInt("cost");
+            
+                Booking book = new Booking();
+                book.setHotelId(id);
+                book.setBookingId(bookingId);
+                book.setSingleRoom(nSingleRoom);
+                book.setDoubleRoom(nDoubleRoom);
+                book.setCost(cost);
+                list.add(book);
+            }
+        return list;
+    }
+    
+    public static void deleteBooking(Connection conn, String code) throws SQLException {
+        String sql = "Delete From booking where bookingId= ?";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setString(1, code);
+ 
+        pstm.executeUpdate();
+    }
+    
+    public static Booking findBooking(Connection conn, String code) throws SQLException {
+        String sql = "Select * from booking a where a.bookingId=?";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, code);
+ 
+        ResultSet rs = pstm.executeQuery();
+ 
+        while (rs.next()) {
+              String id = rs.getString("hotelId");
+                String bookingId = rs.getString("bookingId");
+                int nSingleRoom = rs.getInt("nSingleRoom");
+                int nDoubleRoom = rs.getInt("nDoubleRoom");
+                int cost = rs.getInt("cost");
+            
+                Booking book = new Booking();
+                book.setHotelId(id);
+                book.setBookingId(bookingId);
+                book.setSingleRoom(nSingleRoom);
+                book.setDoubleRoom(nDoubleRoom);
+                book.setCost(cost);
+            return book;
+        }
+        return null;
+    }
+    
+    public static void updateBooking(Connection conn, Booking book) throws SQLException {
+        String sql = "Update booking set nSingleRoom =?, nDoubleRoom=? where bookingId=? ";
+ 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+ 
+        pstm.setInt(1, book.getSingleRoom());
+        pstm.setInt(2, book.getDoubleRoom());
+        pstm.setString(3, book.getBookingId());
+        pstm.executeUpdate();
+    }
 }   
     
