@@ -12,6 +12,18 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <body>
+        <h3>Checkout Success</h3>
+ 
+        <table border="1" cellpadding="5" cellspacing="1" >
+            <tr>Booking ID : ${bookingInfo.bookingId}</tr>
+            <tr>username : ${bookingInfo.username}</tr>
+            <tr>hotelId : ${bookingInfo.hotelId}</tr>
+            <tr>nSingleRoom : ${bookingInfo.nSingleRoom}</tr>
+            <tr>nDoubleRoom : ${bookingInfo.nDoubleRoom}</tr>
+            <tr>cost : ${bookingInfo.cost}</tr>
+            <tr>First day of Booking : ${firstDay}</tr>
+            <tr>Last day of Booking : ${bookingInfo.date}</tr>
+        </table>
     </body>
 </html>

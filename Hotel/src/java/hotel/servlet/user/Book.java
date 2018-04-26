@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Tushar
  */
-@WebServlet(name = "Book", urlPatterns = {"/user/book"})
+@WebServlet(name = "Book", urlPatterns = {"/book"})
 public class Book extends HttpServlet {
 
     /**
@@ -40,7 +40,7 @@ public class Book extends HttpServlet {
             out.println("<title>Servlet Book</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Book at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Book at " + request.getAttribute("varName") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -42,7 +42,7 @@ public class CustomerDBUtils {
 
         ResultSet rs = pstm.executeQuery();
 
-        List<HotelInfo> list = new ArrayList<HotelInfo>();
+        List<HotelInfo> list = new ArrayList<>();
         
         while (rs.next()) {
             
