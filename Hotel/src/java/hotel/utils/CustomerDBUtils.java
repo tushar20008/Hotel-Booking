@@ -161,7 +161,7 @@ public class CustomerDBUtils {
     }
 
     public static List<Booking> queryGetBookings(Connection conn, String username) throws SQLException {
-        String sql ="Select bookingId, Distinct(hotelId), Distinct(nSingleRoom), Distinct(nDoubleRoom), Distinct(Cost) " +
+        String sql ="Select bookingId, hotelId, nSingleRoom, nDoubleRoom, Cost " +
                     "from booking where username=? Group by bookingId ";
         
         PreparedStatement pstm = conn.prepareStatement(sql);
