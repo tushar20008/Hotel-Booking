@@ -1,6 +1,6 @@
 <%-- 
-    Document   : modify
-    Created on : 25 Apr, 2018, 10:39:11 AM
+    Document   : deleteManager
+    Created on : 25 Apr, 2018, 12:44:31 PM
     Author     : Tushar
 --%>
 
@@ -11,8 +11,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <jsp:include page="../translation.jsp"></jsp:include>
     <body>
-        <h1>Hello World!</h1>
+        <h3>Delete Booking</h3>
+    
+    <p style="color: red;">${errorString}</p>
+    <a href="bookingList">Booking List</a>
     </body>
 </html>

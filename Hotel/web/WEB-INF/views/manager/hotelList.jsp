@@ -24,7 +24,7 @@
           <th>Name</th>
           <th>Location</th>
           <th>Edit</th>
-          <th>Delete</th>
+<!--          <th>Delete</th>-->
        </tr>
        <c:forEach items="${hotelList}" var="hotel" >
           <tr>
@@ -34,9 +34,9 @@
              <td>
                 <a href="editHotel?code=${hotel.id}">Edit</a>
              </td>
-             <td>
+<!--             <td>
                 <a href="deleteHotel?code=${hotel.id}">Delete</a>
-             </td>
+             </td>-->
           </tr>
        </c:forEach>
     </table>
