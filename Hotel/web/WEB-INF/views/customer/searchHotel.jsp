@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hotels</title>
     </head>
+    <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <form name="Hotel Search" method="POST">
             Location: <input type="text" name="location" name="location"/></br>

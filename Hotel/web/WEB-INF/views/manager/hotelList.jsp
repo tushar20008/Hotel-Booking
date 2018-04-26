@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hotel List</title>
     </head>
+    <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <h3>Hotel List</h3>
  

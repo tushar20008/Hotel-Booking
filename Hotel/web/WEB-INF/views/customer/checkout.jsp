@@ -11,8 +11,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <jsp:include page="../translation.jsp"></jsp:include>
     <body>
-        <body>
         <h3>Checkout Success</h3>
  
         <table border="1" cellpadding="5" cellspacing="1" >

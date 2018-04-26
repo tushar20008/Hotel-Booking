@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Manager List</title>
     </head>
+    <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <h3>Manager List</h3>
  

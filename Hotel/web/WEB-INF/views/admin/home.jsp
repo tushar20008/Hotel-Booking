@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Functionalities</title>
     </head>
+    <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <h1>Admin Home World!</h1>
         <a href="${pageContext.request.contextPath}/managerList">Manager List</a>
