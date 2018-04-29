@@ -79,11 +79,12 @@ public class EditBooking extends HttpServlet {
         int nSingleRoom = Integer.parseInt(request.getParameter("nSingleRoom"));
         int nDoubleRoom = Integer.parseInt(request.getParameter("nDoubleRoom"));
         String code = (String) request.getParameter("code");
-        
+        String []dates = request.getParameterValues("date");
         Booking booking = new Booking();
         booking.setBookingId(code);
         booking.setnSingleRoom(nSingleRoom);
         booking.setnDoubleRoom(nDoubleRoom);
+        booking.setDate(dates[0]+","+dates[1]);
         
         String errorString = null;
  

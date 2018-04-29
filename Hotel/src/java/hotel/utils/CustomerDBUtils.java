@@ -243,10 +243,12 @@ public class CustomerDBUtils {
     public static void updateBooking(Connection conn, Booking book) throws SQLException {
         
         Booking oldBook = findBooking(conn, book.getBookingId());
-        deleteBooking(conn, book.getBookingId());
+        //deleteBooking(conn, book.getBookingId());
         
         book.setHotelId(oldBook.getHotelId());
         book.setUsername(oldBook.getUsername());
+        
+        System.out.println(book.getUsername());
         
         HotelInfo hotel = ManagerDBUtils.findHotel(conn, book.getHotelId());
         int singleRoomPrice = hotel.getSingleRoomPrice();
@@ -256,7 +258,7 @@ public class CustomerDBUtils {
         int cost = (singleRoomPrice * book.getnSingleRoom()) + (doubleRoomPrice * book.getnDoubleRoom()) - discount;
         book.setCost(cost);
         
-        String [] date = book.getDate().split("|");
+        String [] date = book.getDate().split(",");
         
         LocalDate start = LocalDate.parse(date[0]),
                       end   = LocalDate.parse(date[1]);
@@ -264,9 +266,8 @@ public class CustomerDBUtils {
             
         while ((next = next.plusDays(1)).isBefore(end.plusDays(1))) {
 
-            Booking booking = book;
-            booking.setDate(next.toString());
-            CustomerDBUtils.bookHotel(conn, booking);
+            book.setDate(next.toString());
+            CustomerDBUtils.bookHotel(conn, book);
 
         }
     }
