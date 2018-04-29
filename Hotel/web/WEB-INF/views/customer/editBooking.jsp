@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,6 +26,12 @@
                <tr>
                   <td>Booking Id</td>
                   <td style="color:red;">${booking.bookingId}</td>
+               </tr>
+               <tr>
+                  <td>Booking Dates</td>
+                  <c:forEach var="split" items="${fn:split(booking.date,'|')}">
+                      <td><input type="date" name="date" value="${split}"/></td>
+                  </c:forEach>
                </tr>
                <tr>
                   <td>Number of Single Rooms</td>

@@ -209,7 +209,7 @@ public class CustomerDBUtils {
     public static Booking findBooking(Connection conn, String code) throws SQLException {
         String sql = "Select * from booking a where a.bookingId=?";
  
-        PreparedStatement pstm = conn.prepareStatement(sql);
+        PreparedStatement pstm = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         pstm.setString(1, code);
  
         ResultSet rs = pstm.executeQuery();
@@ -220,13 +220,20 @@ public class CustomerDBUtils {
                 int nSingleRoom = rs.getInt("nSingleRoom");
                 int nDoubleRoom = rs.getInt("nDoubleRoom");
                 int cost = rs.getInt("cost");
-            
+                
+                String date = rs.getString("date").split(" ")[0] + "|";
+                rs.last();
+                date += rs.getString("date").split(" ")[0];
+                
+                System.out.println(date);
+                
                 Booking book = new Booking();
                 book.setHotelId(id);
                 book.setBookingId(bookingId);
                 book.setnSingleRoom(nSingleRoom);
                 book.setnDoubleRoom(nDoubleRoom);
                 book.setCost(cost);
+                book.setDate(date);
             return book;
         }
         return null;
