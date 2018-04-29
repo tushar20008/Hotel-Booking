@@ -29,7 +29,7 @@
                </tr>
                <tr>
                   <td>Booking Dates</td>
-                  <c:forEach var="split" items="${fn:split(booking.date,'|')}">
+                  <c:forEach var="split" items="${fn:split(booking.date,',')}">
                       <td><input type="date" name="date" value="${split}"/></td>
                   </c:forEach>
                </tr>
