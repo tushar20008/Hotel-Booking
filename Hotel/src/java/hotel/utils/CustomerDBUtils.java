@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -240,14 +241,34 @@ public class CustomerDBUtils {
     }
     
     public static void updateBooking(Connection conn, Booking book) throws SQLException {
-        String sql = "Update booking set nSingleRoom =?, nDoubleRoom=? where bookingId=? ";
- 
-        PreparedStatement pstm = conn.prepareStatement(sql);
- 
-        pstm.setInt(1, book.getnSingleRoom());
-        pstm.setInt(2, book.getnDoubleRoom());
-        pstm.setString(3, book.getBookingId());
-        pstm.executeUpdate();
+        
+        Booking oldBook = findBooking(conn, book.getBookingId());
+        deleteBooking(conn, book.getBookingId());
+        
+        book.setHotelId(oldBook.getHotelId());
+        book.setUsername(oldBook.getUsername());
+        
+        HotelInfo hotel = ManagerDBUtils.findHotel(conn, book.getHotelId());
+        int singleRoomPrice = hotel.getSingleRoomPrice();
+        int doubleRoomPrice = hotel.getDoubleRoomPrice();
+        int discount = hotel.getDiscount();
+        
+        int cost = (singleRoomPrice * book.getnSingleRoom()) + (doubleRoomPrice * book.getnDoubleRoom()) - discount;
+        book.setCost(cost);
+        
+        String [] date = book.getDate().split("|");
+        
+        LocalDate start = LocalDate.parse(date[0]),
+                      end   = LocalDate.parse(date[1]);
+        LocalDate next = start.minusDays(1);
+            
+        while ((next = next.plusDays(1)).isBefore(end.plusDays(1))) {
+
+            Booking booking = book;
+            booking.setDate(next.toString());
+            CustomerDBUtils.bookHotel(conn, booking);
+
+        }
     }
 }   
     
