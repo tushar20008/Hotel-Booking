@@ -81,13 +81,14 @@ public class CustomerDBUtils {
 
         ResultSet rs = pstm.executeQuery();
 
-        Boolean canAdd = false;
+        Boolean canAdd = true;
         while (rs.next()) {
+            System.out.println(rs.getInt("SingleRooms"));
             int sRoomsUsed = rs.getInt("SingleRooms");
             int dRoomsUsed = rs.getInt("DoubleRooms");
 
-            if (singleRoomCap - sRoomsUsed >= sRooms && doubleRoomCap - dRoomsUsed >= dRooms) {
-                canAdd = true;
+            if (!(singleRoomCap - sRoomsUsed >= sRooms && doubleRoomCap - dRoomsUsed >= dRooms)) {
+                canAdd = false;
             }
         }
         System.out.println(canAdd);
