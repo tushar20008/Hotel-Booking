@@ -41,7 +41,7 @@ public class DeleteManager extends HttpServlet {
         String errorString = null;
  
         try {
-            CustomerDBUtils.deleteBooking(conn, code);
+            AdminDBUtils.deleteManager(conn, code);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -59,7 +59,7 @@ public class DeleteManager extends HttpServlet {
         // If everything nice.
         // Redirect to the product listing page.        
         else {
-            response.sendRedirect(request.getContextPath() + "/bookingList");
+            response.sendRedirect(request.getContextPath() + "/managerList");
         }
  
     }
