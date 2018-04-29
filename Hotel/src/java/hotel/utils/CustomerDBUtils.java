@@ -219,6 +219,7 @@ public class CustomerDBUtils {
         while (rs.next()) {
             String id = rs.getString("hotelId");
             String bookingId = rs.getString("bookingId");
+            String username = rs.getString("username");
             int nSingleRoom = rs.getInt("nSingleRoom");
             int nDoubleRoom = rs.getInt("nDoubleRoom");
             int cost = rs.getInt("cost");
@@ -231,6 +232,7 @@ public class CustomerDBUtils {
 
             Booking book = new Booking();
             book.setHotelId(id);
+            book.setUsername(username);
             book.setBookingId(bookingId);
             book.setnSingleRoom(nSingleRoom);
             book.setnDoubleRoom(nDoubleRoom);
@@ -244,7 +246,7 @@ public class CustomerDBUtils {
     public static void updateBooking(Connection conn, Booking book) throws SQLException {
         
         Booking oldBook = findBooking(conn, book.getBookingId());
-        //deleteBooking(conn, book.getBookingId());
+        deleteBooking(conn, book.getBookingId());
         
         book.setHotelId(oldBook.getHotelId());
         book.setUsername(oldBook.getUsername());
