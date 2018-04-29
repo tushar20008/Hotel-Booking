@@ -76,20 +76,32 @@ public class EditBooking extends HttpServlet {
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
  
+        
+        String []dates = request.getParameterValues("date");
         int nSingleRoom = Integer.parseInt(request.getParameter("nSingleRoom"));
         int nDoubleRoom = Integer.parseInt(request.getParameter("nDoubleRoom"));
         String code = (String) request.getParameter("code");
-        String []dates = request.getParameterValues("date");
+        
         Booking booking = new Booking();
+        
+        String bookingDate = dates[0]+","+dates[1];
+        System.out.println("Editbooking:" + bookingDate);
+        
+        booking.setDate(bookingDate);
+        System.out.println("After setting:" + booking.getDate());
+        
         booking.setBookingId(code);
         booking.setnSingleRoom(nSingleRoom);
         booking.setnDoubleRoom(nDoubleRoom);
-        booking.setDate(dates[0]+","+dates[1]);
         
         String errorString = null;
  
         try {
-            CustomerDBUtils.updateBooking(conn, booking);
+            if(CustomerDBUtils.checkNewBooking(conn, booking))
+                CustomerDBUtils.updateBooking(conn, booking);
+            else{
+                errorString = "Not Available";
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -107,7 +119,7 @@ public class EditBooking extends HttpServlet {
         // If everything nice.
         // Redirect to the product listing page.
         else {
-            response.sendRedirect(request.getContextPath() + "/bookingList");
+            response.sendRedirect(request.getContextPath() + "/bookings");
         }
     }
 }
