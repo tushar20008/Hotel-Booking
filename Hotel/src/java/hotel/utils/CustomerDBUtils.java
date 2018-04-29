@@ -99,8 +99,8 @@ public class CustomerDBUtils {
         PreparedStatement pstm = conn.prepareStatement(sql);
  
         pstm.setString(1, booking.getDate());
-        pstm.setInt(2, booking.getSingleRoom());
-        pstm.setInt(3, booking.getDoubleRoom());
+        pstm.setInt(2, booking.getnSingleRoom());
+        pstm.setInt(3, booking.getnDoubleRoom());
         pstm.setString(4, booking.getUsername());
         pstm.setString(5, booking.getHotelId());
         pstm.setInt(6, booking.getCost());
@@ -237,8 +237,8 @@ public class CustomerDBUtils {
  
         PreparedStatement pstm = conn.prepareStatement(sql);
  
-        pstm.setInt(1, book.getSingleRoom());
-        pstm.setInt(2, book.getDoubleRoom());
+        pstm.setInt(1, book.getnSingleRoom());
+        pstm.setInt(2, book.getnDoubleRoom());
         pstm.setString(3, book.getBookingId());
         pstm.executeUpdate();
     }

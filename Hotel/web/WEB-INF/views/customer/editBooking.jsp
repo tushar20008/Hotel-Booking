@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Edit Booking</title>
     </head>
     <jsp:include page="../translation.jsp"></jsp:include>
     <body>
@@ -36,7 +36,7 @@
                <tr>
                   <td colspan = "2">
                       <input type="submit" value="Submit" />
-                      <a href="${pageContext.request.contextPath}/managerList">Cancel</a>
+                      <a href="${pageContext.request.contextPath}/bookings">Cancel</a>
                   </td>
                </tr>
             </table>
