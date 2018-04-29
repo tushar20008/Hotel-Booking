@@ -105,6 +105,7 @@ public class Checkout extends HttpServlet {
                 booking.setHotelId(hotelId);
                 // Give Discount only if user
                 booking.setCost((singleRooms * hotel.getSingleRoomPrice()) + (doubleRooms * hotel.getDoubleRoomPrice()) - hotel.getDiscount());
+                booking.setDiscount(hotel.getDiscount());
                 booking.setUsername(username);
                 booking.setDate(next.toString());
                 try {

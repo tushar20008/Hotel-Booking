@@ -6,6 +6,7 @@
 package hotel.servlet.user;
 
 import hotel.utils.AdminDBUtils;
+import hotel.utils.CustomerDBUtils;
 import hotel.utils.MyUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,7 +40,7 @@ public class DeleteBooking extends HttpServlet {
         String errorString = null;
  
         try {
-            AdminDBUtils.deleteManager(conn, code);
+            CustomerDBUtils.deleteBooking(conn, code);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -51,13 +52,13 @@ public class DeleteBooking extends HttpServlet {
             request.setAttribute("errorString", errorString);
             // 
             RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/views/admin/deleteManager.jsp");
+                    .getRequestDispatcher("/WEB-INF/views/customer/deleteBooking.jsp");
             dispatcher.forward(request, response);
         }
         // If everything nice.
         // Redirect to the product listing page.        
         else {
-            response.sendRedirect(request.getContextPath() + "/managerList");
+            response.sendRedirect(request.getContextPath() + "/bookings");
         }
  
     }

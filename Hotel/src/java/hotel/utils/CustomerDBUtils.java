@@ -94,7 +94,7 @@ public class CustomerDBUtils {
     }
     
         public static void bookHotel(Connection conn, Booking booking) throws SQLException {
-        String sql = "Insert into booking(date, nSingleRoom, nDoubleRoom, username, password, hotelId, cost, bookingId) values (?,?,?,?,?,?,?)";
+        String sql = "Insert into booking(date, nSingleRoom, nDoubleRoom, username, hotelId, cost, bookingId) values (?,?,?,?,?,?,?)";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
  
@@ -162,28 +162,36 @@ public class CustomerDBUtils {
 
     public static List<Booking> queryGetBookings(Connection conn, String username) throws SQLException {
         String sql ="Select bookingId, hotelId, nSingleRoom, nDoubleRoom, Cost " +
-                    "from booking where username=? Group by bookingId ";
+                    "from booking where username=?";
         
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1, username);
 
         ResultSet rs = pstm.executeQuery();
         List<Booking> list = new ArrayList<>();
+        
+        String prevBook = " ";
         while (rs.next()) {
-            
-                String id = rs.getString("hotelId");
+                
                 String bookingId = rs.getString("bookingId");
-                int nSingleRoom = rs.getInt("nSingleRoom");
-                int nDoubleRoom = rs.getInt("nDoubleRoom");
-                int cost = rs.getInt("cost");
-            
-                Booking book = new Booking();
-                book.setHotelId(id);
-                book.setBookingId(bookingId);
-                book.setSingleRoom(nSingleRoom);
-                book.setDoubleRoom(nDoubleRoom);
-                book.setCost(cost);
-                list.add(book);
+               
+                if(!prevBook.equals(bookingId)){
+                    
+                    String id = rs.getString("hotelId");
+                    int nSingleRoom = rs.getInt("nSingleRoom");
+                    int nDoubleRoom = rs.getInt("nDoubleRoom");
+                    int cost = rs.getInt("cost");
+                    
+                    Booking book = new Booking();
+                    book.setHotelId(id);
+                    book.setBookingId(bookingId);
+                    book.setSingleRoom(nSingleRoom);
+                    book.setDoubleRoom(nDoubleRoom);
+                    book.setCost(cost);
+                    
+                    list.add(book);
+                    prevBook = bookingId;
+                }
             }
         return list;
     }

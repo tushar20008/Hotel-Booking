@@ -26,7 +26,7 @@
           <th>Double Rooms Booked</th>
           <th>Total Cost</th>
           <th>Modify</th>
-          <th>Delete</th>
+          <th>Cancel</th>
        </tr>
        <c:forEach items="${bookingList}" var="booking" >
           <tr>
@@ -36,10 +36,10 @@
              <td>${booking.nDoubleRoom}</td>
              <td>${booking.cost}</td>
              <td>
-                <a href="editBooking?code=${booking.hotelId}">Edit</a>
+                <a href="editBooking?code=${booking.bookingId}">Edit</a>
              </td>
              <td>
-                <a href="deleteBooking?code=${booking.hotelId}">Delete</a>
+                <a href="deleteBooking?code=${booking.bookingId}">Cancel</a>
              </td>
           </tr>
        </c:forEach>

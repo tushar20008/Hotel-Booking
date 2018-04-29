@@ -12,7 +12,7 @@ package hotel.beans;
 public class Booking {
     
     private String date, username, hotelId, bookingId;
-    private int nSingleRoom, nDoubleRoom, cost;
+    private int nSingleRoom, nDoubleRoom, cost, discount = 0;
     
     public void setBookingId(String id){
         this.bookingId = id;
@@ -58,7 +58,7 @@ public class Booking {
         this.nSingleRoom = n;
     }
     
-    public int getSingleRoom(){
+    public int getnSingleRoom(){
         return nSingleRoom;
     }
     
@@ -66,7 +66,15 @@ public class Booking {
         this.nDoubleRoom = n;
     }
         
-    public int getDoubleRoom(){
+    public int getnDoubleRoom(){
         return nDoubleRoom;
+    }
+    
+     public void setDiscount(int n){
+        this.discount = n;
+    }
+        
+    public int getDiscount(){
+        return discount;
     }
 }

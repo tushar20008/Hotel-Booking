@@ -16,13 +16,14 @@
         <h3>Checkout Success</h3>
  
         <table border="1" cellpadding="5" cellspacing="1" >
-            <tr>Booking ID : ${bookingInfo.bookingId}</tr>
-            <tr>username : ${bookingInfo.username}</tr>
-            <tr>hotelId : ${bookingInfo.hotelId}</tr>
-            <tr>nSingleRoom : ${bookingInfo.nSingleRoom}</tr>
-            <tr>nDoubleRoom : ${bookingInfo.nDoubleRoom}</tr>
-            <tr>cost : ${bookingInfo.cost}</tr>
-            <tr>First day of Booking : ${firstDay}</tr>
+            <tr>Booking ID : ${bookingInfo.bookingId}</tr><br/>
+            <tr>username : ${bookingInfo.username}</tr><br/>
+            <tr>hotelId : ${bookingInfo.hotelId}</tr><br/>
+            <tr>nSingleRoom : ${booking.nSingleRoom}</td><br/>
+            <tr>ndoubleRoom : ${booking.nDoubleRoom}</td><br/>
+            <tr>cost : ${bookingInfo.cost}</tr><br/>
+            <tr>discount : ${bookingInfo.discount}</tr><br/>
+            <tr>First day of Booking : ${firstDay}</tr><br/>
             <tr>Last day of Booking : ${bookingInfo.date}</tr>
         </table>
     </body>
