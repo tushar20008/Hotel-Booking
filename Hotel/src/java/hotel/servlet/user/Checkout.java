@@ -40,6 +40,7 @@ public class Checkout extends HttpServlet {
             
         Cookie[] cookies = request.getCookies();
         String location = null, startDate = null, endDate = null;
+        boolean isGuest = false;
         int singleRooms = -1,doubleRooms = -1; 
         
         for(int i = 0; i < cookies.length; i++) { 
@@ -59,12 +60,17 @@ public class Checkout extends HttpServlet {
             if (cookie1.getName().equals("doubleRooms")) {
                 doubleRooms = Integer.parseInt(cookie1.getValue());
             }
+            if (cookie1.getName().equals("guest")) {
+                isGuest = true;
+            }
         }  
         
         if(location != null && startDate != null && endDate != null && singleRooms != -1 && doubleRooms != -1){
             
             String hotelId = request.getParameter("hotelId");
             String username = MyUtils.getUserNameInCookie(request);
+            if(username == null)
+                username = "guest";
             String alphabet= "abcdefghijklmnopqrstuvwxyz";
             String bookId = "";
             Random random = new Random();
@@ -100,12 +106,17 @@ public class Checkout extends HttpServlet {
        
                 booking = new Booking();
                 booking.setBookingId(bookId);
-                booking.setSingleRoom(singleRooms);
-                booking.setDoubleRoom(doubleRooms);
+                booking.setnSingleRoom(singleRooms);
+                booking.setnDoubleRoom(doubleRooms);
                 booking.setHotelId(hotelId);
-                // Give Discount only if user
-                booking.setCost((singleRooms * hotel.getSingleRoomPrice()) + (doubleRooms * hotel.getDoubleRoomPrice()) - hotel.getDiscount());
-                booking.setDiscount(hotel.getDiscount());
+                if(!isGuest){
+                    booking.setCost((singleRooms * hotel.getSingleRoomPrice()) + (doubleRooms * hotel.getDoubleRoomPrice()) - hotel.getDiscount());
+                    booking.setDiscount(hotel.getDiscount());
+                }
+                else{
+                    booking.setCost((singleRooms * hotel.getSingleRoomPrice()) + (doubleRooms * hotel.getDoubleRoomPrice()));
+                    booking.setDiscount(0);
+                }
                 booking.setUsername(username);
                 booking.setDate(next.toString());
                 try {

@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 <td>
-                    <a href="${pageContext.request.contextPath}/home?user=customer">Continue as Guest</a>
+                    <a href="${pageContext.request.contextPath}/home?user=customer&guest=1">Continue as Guest</a>
                 </td>
             </tr>
          </table>

@@ -82,8 +82,8 @@ public class EditBooking extends HttpServlet {
         
         Booking booking = new Booking();
         booking.setBookingId(code);
-        booking.setSingleRoom(nSingleRoom);
-        booking.setDoubleRoom(nDoubleRoom);
+        booking.setnSingleRoom(nSingleRoom);
+        booking.setnDoubleRoom(nDoubleRoom);
         
         String errorString = null;
  

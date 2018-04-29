@@ -54,7 +54,7 @@ public class Booking {
         return cost;
     }
     
-    public void setSingleRoom(int n){
+    public void setnSingleRoom(int n){
         this.nSingleRoom = n;
     }
     
@@ -62,7 +62,7 @@ public class Booking {
         return nSingleRoom;
     }
     
-    public void setDoubleRoom(int n){
+    public void setnDoubleRoom(int n){
         this.nDoubleRoom = n;
     }
         

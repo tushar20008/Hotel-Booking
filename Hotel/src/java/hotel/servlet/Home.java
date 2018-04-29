@@ -5,11 +5,13 @@
  */
 package hotel.servlet;
 
+import hotel.utils.MyUtils;
 import java.io.IOException;
  
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +33,13 @@ public class Home extends HttpServlet {
        // Forward to /WEB-INF/views/homeView.jsp
        
         if(role != null){
+            
+            String guest  = request.getParameter("guest");
+            if("1".equals(guest)){
+                Cookie guestC = new Cookie("guest", guest);
+                response.addCookie(guestC);
+                MyUtils.deleteUserCookie(response);
+            }
             dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/"+role+"/home.jsp");         
         }
         else{

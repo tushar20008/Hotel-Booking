@@ -185,8 +185,8 @@ public class CustomerDBUtils {
                     Booking book = new Booking();
                     book.setHotelId(id);
                     book.setBookingId(bookingId);
-                    book.setSingleRoom(nSingleRoom);
-                    book.setDoubleRoom(nDoubleRoom);
+                    book.setnSingleRoom(nSingleRoom);
+                    book.setnDoubleRoom(nDoubleRoom);
                     book.setCost(cost);
                     
                     list.add(book);
@@ -224,8 +224,8 @@ public class CustomerDBUtils {
                 Booking book = new Booking();
                 book.setHotelId(id);
                 book.setBookingId(bookingId);
-                book.setSingleRoom(nSingleRoom);
-                book.setDoubleRoom(nDoubleRoom);
+                book.setnSingleRoom(nSingleRoom);
+                book.setnDoubleRoom(nDoubleRoom);
                 book.setCost(cost);
             return book;
         }
