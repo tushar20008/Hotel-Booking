@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
     <jsp:include page="../translation.jsp"></jsp:include>
     <body>
               <h3>Create Manager</h3>
@@ -36,4 +37,5 @@
          </table>
       </form>
     </body>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
 </html>

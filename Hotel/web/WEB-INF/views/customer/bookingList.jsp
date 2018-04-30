@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hotel List</title>
     </head>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
     <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <h3>Hotel Bookings</h3>
@@ -46,4 +47,5 @@
     </table>
     <a href="${pageContext.request.contextPath}/home?user=cutomer">Go Back</a>
     </body>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
 </html>

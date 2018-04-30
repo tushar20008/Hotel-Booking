@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hotels</title>
     </head>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
     <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <form name="Hotel Search" method="POST">
@@ -58,4 +59,5 @@
     </table>
              
     </body>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
 </html>

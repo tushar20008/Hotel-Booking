@@ -105,7 +105,7 @@ public class Login extends HttpServlet {
             //else {
             //    MyUtils.deleteUserCookie(response);
             //}
- 
+            
             if(user.getRole() != null)
                 // Todo: Different Redirects for User / Manager / Admin
             switch (user.getRole()) {

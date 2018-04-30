@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Home Page</title>
     </head>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
     <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <h1>Customer Functions</h1>
@@ -18,4 +19,5 @@
         <a href="${pageContext.request.contextPath}/bookings">View Bookings</a></br>
         <a href="${pageContext.request.contextPath}/recommendation">Recommended Hotels</a>
     </body>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
 </html>

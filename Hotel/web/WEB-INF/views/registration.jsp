@@ -12,6 +12,7 @@
         <title>Registration</title>
     </head>
     <body>
+        <jsp:include page="_demoTag.jsp"></jsp:include>
         <h1>Registration Page</h1>
         <p style="color: red;">${errorString}</p>
         
@@ -33,5 +34,6 @@
             </tr>
          </table>
         </form>    
+        <jsp:include page="_demoTag.jsp"></jsp:include>
     </body>
 </html>

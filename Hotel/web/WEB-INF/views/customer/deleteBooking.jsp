@@ -11,10 +11,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
     <body>
         <h3>Delete Booking</h3>
     
     <p style="color: red;">${errorString}</p>
     <a href="bookingList">Booking List</a>
     </body>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
 </html>

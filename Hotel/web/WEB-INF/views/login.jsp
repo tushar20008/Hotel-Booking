@@ -12,7 +12,7 @@
       <title>Login</title>
    </head>
    <body>
-   
+      <jsp:include page="_demoTag.jsp"></jsp:include>
       <h3>Login Page</h3>
       <p style="color: red;">${errorString}</p>
  
@@ -44,6 +44,6 @@
             </tr>
          </table>
       </form>
-     
+     <jsp:include page="_demoTag.jsp"></jsp:include>
    </body>
 </html>

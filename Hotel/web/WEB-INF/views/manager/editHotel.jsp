@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
     <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <h3>Edit Hotel</h3>
@@ -63,5 +64,6 @@
             </table>
          </form>
       </c:if>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
     </body>
 </html>

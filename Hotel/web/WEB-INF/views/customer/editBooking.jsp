@@ -13,6 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Booking</title>
     </head>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
     <jsp:include page="../translation.jsp"></jsp:include>
     <body>
         <h3>Edit Booking</h3>
@@ -51,4 +52,5 @@
          </form>
       </c:if>
     </body>
+    <jsp:include page="../_demoTag.jsp"></jsp:include>
 </html>
